@@ -1,9 +1,44 @@
----
-name: reference-remote-gdrive-access
-description: "How to reach the trading pipeline's data from a REMOTE session (tablet/web, no home PC). Google Drive connector layout, folder/file IDs, freshness, connector gotchas, and the local mirror. Written 2026-09-07 during the 09-06..09-20 absence."
-metadata:
-  type: reference
----
+
+# ⭐ START HERE (remote session, no home PC)
+
+**Everything durable lives in Google Drive. Read this section first, then go straight
+to the folder below — do not re-explore Drive from scratch.**
+
+## `quantbot/tablet/` — folder id `1XDQmOTl3BV9de1vL2SbdavNlIt3ZjhMR`
+Created 2026-09-07. Sits OUTSIDE `auto/` on purpose so the SOD job never reads it.
+This is the PM's tablet drop-box and the durable home for anything Claude produces.
+
+| File | What it is |
+|---|---|
+| `TUESDAY_20260908_card.md` (id `15HB7mt0zwd-kIDQ-uOkwoVCSqRIha4p2`) | Tue 09-08 pre-open card: 3 broken stops, 68 live entries, 13 model conflicts, 27 already-ran. Levels re-struck vs Fri 09-04 close. |
+| `reference_remote_gdrive_access.md` | this file — Drive map, IDs, freshness traps |
+| `reference_manual_dd_no_intraday.md` | which DD-gate steps survive with no intraday grounding run |
+
+## 60-second restart recipe
+
+1. Drive connector must be attached (claude.ai Settings -> Connectors). It DOES drop
+   mid-session — if a call returns "session expired", re-run ToolSearch on
+   `mcp__Google_Drive__*` and retry.
+2. Read `quantbot/tablet/` (id above) — the card + these two references.
+3. Pull only what the task needs, with `download_file_content` (NEVER
+   `read_file_content` for .tsv — it destroys tabs). IDs are in the tables below.
+4. The three model files are sufficient for a trading day; `*.run.tsv` is dead cache.
+
+## What a fresh session will NOT know (findings, not files)
+
+Files can be re-pulled in minutes; these conclusions cannot. As of 2026-09-07:
+- **CSIQ** — screen prob 1.00 and its top live entry, but grounding says thesis
+  IMPAIRED / verdict "Watch" AND predict.tsv says SELL. -> PASS.
+- **REPL** — grounded "Strong Entry", thesis INTACT. Cantor Healthcare Conf **Sept 10**
+  falls INSIDE the absence window. Its 40.8%-wide stop is deliberate (binary biotech),
+  not a data error.
+- **BAND / CRDO / ASAN** — `stop_loss_px` sits ABOVE Friday's close; placed as written
+  they fire instantly.
+- **27 of 111** invest.tsv names already ran past their limit, and the crypto-miner /
+  power cluster (RIOT CIFR HUT IREN BTDR CORZ MARA) moved together = basket beta.
+- `short_aggregate.tsv` settles at **2026-08-14** and `otc_aggregate.tsv` at
+  **2026-09-02**, despite both carrying a Friday 09-04 mtime.
+- `mishrask123/finTool` on GitHub is a **PUBLIC** repo.
 
 # Remote data access — Google Drive (no home PC)
 
