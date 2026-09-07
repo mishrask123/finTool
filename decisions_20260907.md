@@ -9,6 +9,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-07 | TDC | **PASS** | PM call. Agrees with gate: OTC_SPIKE with flow 0.60x average. R:R 1.5, beta 1.30, DVOL $55M, d2c 4.9. |
 | 2026-09-07 | TPB | **PASS** | PM call. Confirmed: DVOL $20M, beta 0.62 defensive = off-mandate, d2c 6.78. |
 | 2026-09-07 | STOK | **PASS** | PM: high shorts. Confirmed extreme: 12.98M sh short, **d2c 12.70** on $26M DVOL (~13 days of full volume to unwind), 82% of its own max short, short worth ~20% of mktcap. Signal weak too: OTC flow 0.78x avg, price factor -0.1097. |
 | 2026-09-07 | TNDM | **PASS** | OTC_SPIKE signal with `otc` attribution -0.2734 (negative) and OTC flow 0.65x average. Ungrounded, no predict.tsv cross-check. Squeeze (15.45%, covering) and BofA $25 target are real but are not what the signal fired on. |
@@ -41,7 +42,7 @@ negative `otc` attribution | stop too tight for beta.
 BFLY fails on stop width (4.2% at beta 3.41); re-struck at a ~15% floor its R:R is 1.4,
 no better than the survivors.
 
-All four PM hand-screens (ETSY, TNDM, STOK, TPB) failed these gates independently.
+All five PM hand-screens (ETSY, TNDM, STOK, TPB, TDC) failed these gates independently.
 
 ## Standing data-integrity items
 
