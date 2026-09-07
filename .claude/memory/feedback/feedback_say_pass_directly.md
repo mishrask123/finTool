@@ -34,3 +34,14 @@ IT — no option-menus, no hedging, lead with the action.
 - Predicted peak (PeakT from asofdate) already passed.
 - `stop_loss_px` at or above the current close.
 - Ungrounded (not in the 44-name Gemini cache) AND no `predict.tsv` corroboration.
+
+## PM short-interest gate (2026-09-07, STOK)
+
+PM PASSES on high short interest — it is a RISK gate, not squeeze fuel. Read
+**days-to-cover against DVOL**, not the raw short %: STOK had d2c 12.70 on $26M DVOL
+(~13 days of full volume to unwind) at 82% of its own max short, ~20% of mktcap.
+That is a crowded exit through a thin door.
+
+Do not present high short interest as a positive unless d2c is LOW (fast to cover)
+and liquidity supports it. Contrast: TNDM 15.45% short but d2c 3.89 = coverable;
+STOK d2c 12.70 = trapped.
