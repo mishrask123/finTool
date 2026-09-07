@@ -106,6 +106,17 @@ written, the internal date tells you which session it covers.
 4. Small files return inline and must be re-emitted to reach disk — costly. Prefer
    batching / fetching only what is needed.
 
+## ⛔ IGNORE `*.run.tsv` (PM, 2026-09-07)
+
+`ALPHA.run.tsv`, `DISCLOSURE.run.tsv`, `EMERGING.run.tsv`, `MEAN_REV.run.tsv`,
+`ACCUM.run.tsv`, `MERGER.run.tsv`, `DILUTION.run.tsv` under `poc/<date>/` are a
+**cache of older runs** — NOT current signal. Do not read them, do not cite them,
+do not build cards from them. They also carry no date column, so they cannot be
+aged. PM: "ignore *.run.tsv they are cache of older run".
+
+⭐ The **three `mm*/*.tsv` files are sufficient** for a trading day:
+`mm_prealpha/invest.tsv`, `mm_micro/predict.tsv`, `mm_micro/etf.tsv`.
+
 ## ⭐ The three folders that matter most (PM, 2026-09-07)
 
 PM named **mm_prealpha, mm_micro, macro** as the most important. Status:
