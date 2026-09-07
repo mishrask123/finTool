@@ -34,6 +34,51 @@ instantly at a loss. Stale-stop wiring is the most critical failure mode
 
 ---
 
+## E. GROUNDING — 11 of 111 names have a cached Gemini memo; the other 100 do NOT
+
+No intraday grounding run during the absence, so the only memo source is the
+cache at `portfolio/gemini_cache/order2/` (44 tickers, asof 09-03/09-04).
+Coverage of this card:
+
+| Ticker | State | prob | Cache asof | Verdict |
+|---|---|---|---|---|
+| CSIQ | LIVE | 1.00 | 09-04 | **Watch — thesis IMPAIRED** |
+| REPL | LIVE | 1.00 | 09-04 | **Strong Entry — thesis INTACT** |
+| ETSY | LIVE | 1.00 | 09-04 | not yet pulled |
+| VYX  | LIVE | 0.99 | 09-04 | not yet pulled |
+| CADL | LIVE | 1.00 | 09-04 | not yet pulled |
+| ACHR | LIVE | 0.96 | 09-03 | not yet pulled |
+| AMPX | LIVE | 0.85 | 09-03 | not yet pulled |
+| SEDG | LIVE | 0.66 | 09-03 | not yet pulled |
+| BAND | BROKEN-STOP | 1.00 | 09-04 | not yet pulled |
+| HLF  | CHASE | 1.00 | 09-04 | not yet pulled |
+| IOVA | CHASE | 0.80 | 09-03 | not yet pulled |
+
+⛔ **The other 100 names on this card have NO grounding available.** They are
+screen-score-only -> UNVERIFIED per [[feedback-real-dd-method]].
+
+### ⛔ CSIQ — the top-ranked live entry is a PASS
+
+Three independent reads, two against:
+- `invest.tsv` prob **1.00**, close 13.22 vs limit 13.61 (-2.9%) -> BUY
+- grounding `thesis_intact: "IMPAIRED"`, `gemini_verdict: "Watch"` — quote:
+  *"Q2 results showed a massive EPS miss (-$1.40 vs. -$0.74 expected) and soft Q3
+  guidance due to US factory ramp-up costs and pricing pressure."*
+- `predict.tsv` action **SELL**
+
+### ✅ REPL — grounded Strong Entry, but note the in-window event
+
+`gemini_verdict: "Strong Entry"`, `thesis_intact: "INTACT"` — FDA accelerated
+approval for TUDRIQEV (Aug 6), $150M August financing for runway.
+Risk flags quoted: *"Ongoing securities class action lawsuits; accelerated approval
+contingent on future confirmatory trial results (IGNYTE-3)."*
+⚠️ **Cantor Healthcare Conference Sept 10 — inside the absence window.**
+Cache `realtimePx` 15.29 vs Fri close 15.04: level still good.
+Its stop is 40.8% below close, which is why it looked implausible on the raw sheet —
+the grounding explains the width (binary biotech), it is not a data error.
+
+---
+
 ## B. LIVE ENTRIES — Friday close still at/below limit (68 names, micro model not opposed)
 
 | TICKER | Sector             | FriClose |    Limit | vsLimit |     Stop | StopDist | Prob | 20dTgt | Source        | Micro |

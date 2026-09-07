@@ -1,0 +1,10 @@
+{ "ticker":"REPL","direction":"BUY","identifiedCompany":"Replimune Group, Inc.","symbolIdentityStatus":"MATCH",
+  "catalyst_confirmed":"YES",
+  "catalyst_reason":"Recent FDA accelerated approval for TUDRIQEV (Aug 6) and upcoming presentation at Cantor Healthcare Conference (Sept 10).",
+  "thesis_intact":"INTACT",
+  "thesis_reason":"The commercial-stage transition is underway following FDA approval in advanced melanoma; $150M financing completed in August provides runway.",
+  "risk_flags":"Ongoing securities class action lawsuits; accelerated approval contingent on future confirmatory trial results (IGNYTE-3).",
+  "gemini_verdict":"Strong Entry","sector_validated":"YES","crypto_risk":"NO","wash_trading_risk":"LOW",
+  "sourceRef":"Stock Titan (Sept 3, 2026), GlobeNewswire (Sept 3, 2026)",
+  "shortReason":"FDA approval of TUDRIQEV serves as a major de-risking event, with current price consolidating below recent highs offering a favorable entry.",
+  "asofDate":"20260903","fetchedAt":"2026-09-04T07:50:04","realtimePx":15.29,"realtimeDeltaPct":0.0 }

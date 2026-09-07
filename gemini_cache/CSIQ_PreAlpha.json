@@ -1,0 +1,10 @@
+{ "ticker":"CSIQ","direction":"BUY","identifiedCompany":"Canadian Solar Inc.","symbolIdentityStatus":"MATCH",
+  "catalyst_confirmed":"YES",
+  "catalyst_reason":"Technical mean-reversion potential following a 6-session losing streak and price capitulation after the August 27 earnings report.",
+  "thesis_intact":"IMPAIRED",
+  "thesis_reason":"Recent Q2 results showed a massive EPS miss (-$1.40 vs. -$0.74 expected) and soft Q3 guidance due to US factory ramp-up costs and pricing pressure.",
+  "risk_flags":"Margin compression from US manufacturing ramp-up; soft revenue guidance; industry-wide pricing pressure.",
+  "gemini_verdict":"Watch","sector_validated":"YES","crypto_risk":"NO","wash_trading_risk":"LOW",
+  "sourceRef":"PR Newswire (August 27, 2026), Canadian Solar Reports Second Quarter 2026 Results",
+  "shortReason":"Quantitative signal likely identifies an oversold level after post-earnings sell-off; however, fundamental headwinds suggest waiting for price stabilization.",
+  "asofDate":"20260903","fetchedAt":"2026-09-04T07:45:54","realtimePx":13.53,"realtimeDeltaPct":0.0 }
