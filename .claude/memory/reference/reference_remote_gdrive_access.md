@@ -1,4 +1,9 @@
-
+---
+name: reference-remote-gdrive-access
+description: "START HERE for any remote/tablet session with no home PC. Google Drive is the durable store: quantbot/tablet/ drop-box, the quantbot/auto layout with folder+file IDs, signal locations, freshness traps (Saturday stamp = Friday close; short/otc aggregates lag their mtime), connector gotchas, and the findings a fresh session cannot re-derive."
+metadata:
+  type: reference
+---
 # ⭐ START HERE (remote session, no home PC)
 
 **Everything durable lives in Google Drive. Read this section first, then go straight
