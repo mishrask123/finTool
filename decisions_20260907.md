@@ -9,6 +9,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-07 | FN | **PASS** | PM call. Signal weak: dominant factor `short` -0.3434 (negative), R:R 0.3 (+5.2% target vs 15.6% stop). Already held 4 sh @ 413.80 = $1,629 (-1.9%), lots 8/31 off this same signal — not proven, no top-up. Best business in the file (EPS 13.05, P/E 31.22, DVOL $404M, short 3.28%/d2c 1.6, 46% below 52wk high) but that is a quality thesis, not this signal. |
 | 2026-09-07 | AGYS | **PASS** | PM call. Matches batch-1 rec and gate: DVOL $27M, beta 0.52 off-mandate, OTC flow 0.31x average. |
 | 2026-09-07 | TDC | **PASS** | PM call. Agrees with gate: OTC_SPIKE with flow 0.60x average. R:R 1.5, beta 1.30, DVOL $55M, d2c 4.9. |
 | 2026-09-07 | TPB | **PASS** | PM call. Confirmed: DVOL $20M, beta 0.62 defensive = off-mandate, d2c 6.78. |
@@ -20,6 +21,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Symbol | State |
 |---|---|
 | BFLY | Only one of the three whose stated engine is actually firing (OTC 1.45x, otc attribution +0.4359, strongest in file). HALF discussed. Sizing OK'd as a class; stop width unresolved — file stop 4.2% (7.05) is unusable at beta 3.41, use ~15% floor (~6.26). No PM decision yet. |
+| **NO STOP on held names** | STX (7 sh, $5,945) and FN (4 sh, $1,629) both have zero open orders. Neither is protected. |
 | STX | Held 7 sh (~$5,945, avg 819, +3.7%), 2.4x standard size, NO STOP in place. Add / floor question open. |
 
 ## Claude recommendations (NOT decisions — batch 1 of the 111)
@@ -43,7 +45,9 @@ negative `otc` attribution | stop too tight for beta.
 BFLY fails on stop width (4.2% at beta 3.41); re-struck at a ~15% floor its R:R is 1.4,
 no better than the survivors.
 
-All six PM hand-screens (ETSY, TNDM, STOK, TPB, TDC, AGYS) failed these gates independently — zero disagreements between PM judgement and the gate set.
+All seven PM hand-screens (ETSY, TNDM, STOK, TPB, TDC, AGYS, FN) came back PASS — zero
+disagreements between PM judgement and the gate set. FN was CLEAR on the gates but failed
+on signal quality (negative dominant factor, R:R 0.3), which the gates do not capture.
 
 ## Standing data-integrity items
 
