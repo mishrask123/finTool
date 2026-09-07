@@ -97,6 +97,54 @@ may carry Friday. Always read the internal timestamp, never trust Drive's mtime.
 4. Small files return inline and must be re-emitted to reach disk — costly. Prefer
    batching / fetching only what is needed.
 
+## ⭐ The three folders that matter most (PM, 2026-09-07)
+
+PM named **mm_prealpha, mm_micro, macro** as the most important. Status:
+
+| Folder | Where | Contents | Status |
+|---|---|---|---|
+| `mm_prealpha` | `poc/20260902/` id `13Z6SKJOskShh11DvgOPINvW5wfMTBZM9` | `invest.tsv` 60,848 B, 111 rows | HAVE |
+| `mm_micro` | `poc/20260902/` id `1DeWoeoEzMD_8Q8FNAbOyR0kb3A-UdK7i` | `predict.tsv` 211,654 B / 560 rows; `etf.tsv` 764,436 B / 893 rows | HAVE |
+| `macro` | — | — | ⛔ DOES NOT EXIST IN DRIVE |
+
+⛔ **macro**: no folder anywhere in Drive named macro/mm_macro. The ONLY match for
+"macro" is `config/FILTER/macro_fwd_return.tsv` (id `19AilAfiZApNGeM0fPIlG_L30oPbAohQ1`,
+19 bytes) whose entire content is a threshold config, not data:
+`Key<TAB>Value` / `MIN<TAB>0.15`. The repo carries `specs/macro-report-business-spec-v1.md`
+and `specs/macro-report-sample-v1.tex`, so macro reporting looks SPECIFIED BUT NOT
+YET PRODUCED. Ask PM where macro output lands before assuming it is missing.
+
+⚠️ **Both live under 20260902, NOT the newer 20260903.** The 20260903 folder contains
+only the 7 `*.run.tsv` files plus `mm_insider` — the mm_* model outputs were not
+regenerated on 09-03. So mm_prealpha/mm_micro are one day older than ALPHA.run.tsv.
+
+### Schemas
+
+`mm_prealpha/invest.tsv` (37 cols) — per-name trade card, the closest thing to a
+ready-to-act sheet:
+`key asofdate ticker direction name sector market_cap liquidity spot_px limit_px
+stop_loss_px pred_target_px_20d pred_target_px_20dpct adj_pred_target_px_20d
+adj_pred_target_px_20pct shap_fwd20_ret aumc smooth ear dd r2 rmse prob strategy
+source intelligence reason price liq short otc other cross_otc_x_short
+cross_otc_x_liq cross_price_x_otc cross_price_x_short cross_trend_x_liq`
+⭐ Carries **limit_px and stop_loss_px per name** — directly usable from a broker
+portal with no tooling.
+
+`mm_micro/predict.tsv` (29 cols) — per-ticker 20d prediction:
+`ticker asofdate step action curve_type spot_price target_price max_return aumc
+train_r2 train_rmse prob_score smooth ear dd otc_shap liquid_shap short_squeeze
+absorption volume_confirmed_momentum flow_imbalance otc_price_divergence
+relative_volume_vs_index otc_short_conflict short_exhaustion liquidity_shock
+otc_z short_z missing_frac`
+
+`mm_micro/etf.tsv` (48 cols) — predict.tsv schema plus ETF component-blend fields
+(`comp`, `tot_comp_*`, `etf_mm_score`, `component_count`, `long/short/hold_count`,
+`net_assets`, `dollar_theoretical_move`, `theoretical_qty`). Note `comp` packs
+multiple components into one cell delimited by `^` with `comp=TICKER|weight|score`
+triples — parse, do not split naively.
+
+Local mirror: `/home/user/gdrive/poc/20260902/mm_prealpha/`, `.../mm_micro/`.
+
 ## Local mirror (this container, EPHEMERAL)
 
 `/home/user/gdrive/` mirrors the Drive paths:
@@ -104,6 +152,9 @@ may carry Friday. Always read the internal timestamp, never trust Drive's mtime.
   because no field contains a space; re-pull with download_file_content if in doubt)
 - `poc/20260903/ALPHA.run.tsv` (byte-exact, 2,111 rows)
 - `poc/20260902/ALPHA.run.tsv` (byte-exact, 3,105 rows)
+- `poc/20260902/mm_prealpha/invest.tsv` (byte-exact, 111 rows)
+- `poc/20260902/mm_micro/predict.tsv` (byte-exact, 560 rows)
+- `poc/20260902/mm_micro/etf.tsv` (byte-exact, 893 rows)
 
 The container is reclaimed after inactivity — anything worth keeping must be
 committed and pushed.
