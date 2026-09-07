@@ -9,6 +9,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-07 | MP | **PASS** | PM call. Gate fail: OTC_SPIKE with flow 0.82x average. R:R 0.3 (+4.5% vs 13.5% stop), beta 2.32, DVOL $332M, d2c 3.5, PeakT 18d. |
 | 2026-09-07 | FN | **PASS** | PM call. Signal weak: dominant factor `short` -0.3434 (negative), R:R 0.3 (+5.2% target vs 15.6% stop). Already held 4 sh @ 413.80 = $1,629 (-1.9%), lots 8/31 off this same signal — not proven, no top-up. Best business in the file (EPS 13.05, P/E 31.22, DVOL $404M, short 3.28%/d2c 1.6, 46% below 52wk high) but that is a quality thesis, not this signal. |
 | 2026-09-07 | AGYS | **PASS** | PM call. Matches batch-1 rec and gate: DVOL $27M, beta 0.52 off-mandate, OTC flow 0.31x average. |
 | 2026-09-07 | TDC | **PASS** | PM call. Agrees with gate: OTC_SPIKE with flow 0.60x average. R:R 1.5, beta 1.30, DVOL $55M, d2c 4.9. |
@@ -45,7 +46,7 @@ negative `otc` attribution | stop too tight for beta.
 BFLY fails on stop width (4.2% at beta 3.41); re-struck at a ~15% floor its R:R is 1.4,
 no better than the survivors.
 
-All seven PM hand-screens (ETSY, TNDM, STOK, TPB, TDC, AGYS, FN) came back PASS — zero
+All eight PM hand-screens (ETSY, TNDM, STOK, TPB, TDC, AGYS, FN, MP) came back PASS — zero
 disagreements between PM judgement and the gate set. FN was CLEAR on the gates but failed
 on signal quality (negative dominant factor, R:R 0.3), which the gates do not capture.
 
