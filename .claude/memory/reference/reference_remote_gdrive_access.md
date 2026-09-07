@@ -103,14 +103,26 @@ DIRECTION MAX_RETURN TRADESCORE DECISION CONFIDENCE VOLUME SMOOTH EAR DD`
 | `input/equity_meta.txt` | `14yFxNmC-0y8Q4KEKVuIf4RExfK4Ny1eO` | 09-05 21:29Z |
 | `input/equity_px.txt` | `1SVbQ2J7mbHvRdWGlvJFVDepF_ISo4_nX` | 09-05 21:29Z |
 | `input/early_alpha.tsv` | `1m5bAoP4utQD9M3tlLw2hLe1IZXK_pKKo` | 09-05 21:29Z |
+| `input/short_aggregate.tsv` | `1cyuRuOiEyK8NyoVY_ubr0vjxE9sCmKpA` | 09-04 17:07Z |
+| `input/otc_aggregate.tsv` | `1HENL_NHFAgEYaBhL5XtpidEPr08K3V5f` | 09-04 17:07Z |
+| `input/liquidty.tsv` (has **Beta**) | `18W8qBznWksS5yIBqOVl6EJftRcsB8-gc` | 09-05 05:53Z |
+| `input/demand_converge.tsv` | `1kp3qKX-YVlp1usyr0t4WpSHUWkA3v2wZ` | 09-05 03:20Z |
+| `pnl/20260904.tsv` (**POSITIONS**, 573 lots) | `1LptBUHHpN3H2TL_xlg9NRRwvDRrn0Wx4` | 09-04 18:32Z |
 | `broker/UnrealizedGainLossTaxLots_Realtime.csv` | `1j_dJfPR6UJe6I0_y0okv0ZPmSXfl71Nl` | 09-04 16:35Z |
 | `broker/RealizedGainLossTaxLots.csv` | `1uNKcUU6eCmQPsUA-abqAebU44Ok61zgH` | 09-04 15:35Z |
-| `broker/open_orders.tsv` | `1XPvCw6fpVtTuixxs5CSeSpbl1_DfWWRd` | 09-04 18:32Z |
+| `broker/open_orders.tsv` (21 open GTC) | `1XPvCw6fpVtTuixxs5CSeSpbl1_DfWWRd` | 09-04 18:32Z |
 | `llm/worksheet.tsv` | `1cOHCZuoBfa7Ra34Jph8MavJAQ8oLswZi` | 09-04 17:08Z |
 | `llm/worksheet.archive.zip` | `1r8XLyAuHKoLhz4i7j5UG95WnfN1Z2M3i` | 09-04 17:07Z |
 | `13f/latest_13f.tsv` | `16v48Z9xKisslR4-rEwNP4v6aKSbVE45V` | 09-05 06:03Z |
 | `13f/insider.tsv` | `1rZ16vyrEdEHYbIrzou-EQ-_JHKD8UaHt` | 09-05 06:05Z |
 | `portfolio/earnings_estimate_latest.tsv` | `10BvjUUyQtiXJaAphBOcWDPwUeCx_7wR2` | **08-07 — STALE** |
+
+⛔ SKIP `input/price.zip` (id `1_vt233jwViN54VNRVThS9u9UXNaxnjm3`) — **481 MB**, PM
+said skip; the connector moves it base64-encoded and it would dominate any transfer.
+
+`pnl/20260904.tsv` columns:
+`Date Account SubAccount Symbol Qty AvgCost Price DeltaPct Vol MktCap Basket
+MktValue PnL_Pct PnL_Dollar ManagementType Action LotDate`
 
 STALE WARNING: `earnings_estimate_latest.tsv` is a month old. It is the only
 earnings-date source, and the absence plan calls an unattended GTC filling into
@@ -125,7 +137,13 @@ date while carrying **Friday's close**. `eod_price.tsv` rows all read
 `2026-09-05 01:48:24` = Sat 01:48 EDT => contents are the **Fri 09-04 close**,
 which IS the correct EOD reference for the Tue 09-08 pre-open (Mon 09-07 is a
 holiday, so Friday is the last completed session). Do NOT mistake the Saturday
-stamp for stale data.
+stamp for stale data. `equity_px.txt` was checked ticker-by-ticker against
+`eod_price.tsv` and MATCHES exactly — same Friday close, no newer data hides in it.
+
+⚠️ mtime lies on the aggregates: `short_aggregate.tsv` has
+`latest_settlement_date` maxing at **2026-08-14** (FINRA bi-monthly lag, ~3 weeks)
+and `otc_aggregate.tsv` `latest_asofdate` at **2026-09-02** (Wed) — both despite a
+Friday 09-04 mtime. `liquidty.tsv` IS genuinely fresh: 7,000 rows asof 09-04.
 
 Internal stamp beats Drive mtime, but read both: mtime tells you when the file was
 written, the internal date tells you which session it covers.
@@ -145,6 +163,12 @@ written, the internal date tells you which session it covers.
    (`read_file_content` spills use key `fileContent` and are plain text, not base64.)
 4. Small files return inline and must be re-emitted to reach disk — costly. Prefer
    batching / fetching only what is needed.
+5. WRITING to Drive: `create_file` with `textContent` +
+   `disableConversionToGoogleType: true` (else markdown becomes a Google Doc).
+   Content passes through context, so only SMALL text files are practical to write
+   back. Raw pipeline files are ALREADY on Drive — never round-trip them.
+6. The connector session expires mid-run. Re-run ToolSearch on
+   `mcp__Google_Drive__*` and retry; nothing is lost.
 
 ## ⛔ IGNORE `*.run.tsv` (PM, 2026-09-07)
 
