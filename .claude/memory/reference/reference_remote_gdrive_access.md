@@ -76,10 +76,19 @@ STALE WARNING: `earnings_estimate_latest.tsv` is a month old. It is the only
 earnings-date source, and the absence plan calls an unattended GTC filling into
 an earnings print the main risk. Any earnings date derived from it -> UNVERIFIED.
 
-FRESHNESS TRAP: `eod_price.tsv` rows all carry an internal stamp of
-`2026-09-05 01:48:24` (EDT, ~01:48 Friday) => it holds the **09-04 THURSDAY close**,
-NOT Friday's. `equity_px.txt` was written 09-05 17:29 EDT (after Friday's close) and
-may carry Friday. Always read the internal timestamp, never trust Drive's mtime.
+FRESHNESS TRAP — ALWAYS resolve a date to its DAY OF WEEK before trusting it.
+2026: Aug-31 Mon, Sep-02 Wed, Sep-03 Thu, Sep-04 Fri, Sep-05 **Sat**, Sep-06 Sun,
+Sep-07 Mon (US Labor Day, market CLOSED), Sep-08 Tue.
+
+The SOD pipeline runs early SATURDAY morning and stamps files with the Saturday
+date while carrying **Friday's close**. `eod_price.tsv` rows all read
+`2026-09-05 01:48:24` = Sat 01:48 EDT => contents are the **Fri 09-04 close**,
+which IS the correct EOD reference for the Tue 09-08 pre-open (Mon 09-07 is a
+holiday, so Friday is the last completed session). Do NOT mistake the Saturday
+stamp for stale data.
+
+Internal stamp beats Drive mtime, but read both: mtime tells you when the file was
+written, the internal date tells you which session it covers.
 
 ## Connector gotchas (IMPORTANT)
 
@@ -142,6 +151,23 @@ otc_z short_z missing_frac`
 `net_assets`, `dollar_theoretical_move`, `theoretical_qty`). Note `comp` packs
 multiple components into one cell delimited by `^` with `comp=TICKER|weight|score`
 triples — parse, do not split naively.
+
+### asofdate audit (checked 2026-09-07) — only eod_price is Saturday-current
+
+| File | internal asofdate | day | Drive mtime | day |
+|---|---|---|---|---|
+| `input/eod_price.tsv` | 2026-09-05 01:48:24 | **Sat** (= Fri close) | 09-05 05:49Z | Sat |
+| `mm_micro/predict.tsv` | 2026-09-02 | Wed | 09-03 13:03Z | Thu |
+| `mm_micro/etf.tsv` | 2026-09-02 | Wed | 09-03 13:03Z | Thu |
+| `mm_prealpha/invest.tsv` | 2026-08-31 | **Mon** | 09-03 07:14Z | Thu |
+| `poc/20260903/ALPHA.run.tsv` | (no date col) | — | 09-04 16:59Z | Fri |
+| `poc/20260902/ALPHA.run.tsv` | (no date col) | — | 09-03 20:01Z | Thu |
+
+⛔ Only the price file is Saturday-current. The model outputs are NOT: invest.tsv is
+asof Mon 08-31 (a full week before Tue 09-08) and predict/etf are asof Wed 09-02.
+`ALPHA.run.tsv` carries NO date column at all — its only provenance is the poc
+folder name plus Drive mtime. Any limit_px / stop_loss_px taken from invest.tsv is
+priced off week-old spot and MUST be re-checked against eod_price.tsv before use.
 
 Local mirror: `/home/user/gdrive/poc/20260902/mm_prealpha/`, `.../mm_micro/`.
 
