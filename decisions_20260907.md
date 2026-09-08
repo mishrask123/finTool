@@ -9,6 +9,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-08 | SGML | **PASS** | RE-CHASE. Held 3 lots, all exited 2026-08-10 @ 11.67 (net -$74.53 on $1,825, -4.1%); Fri close 12.39 = +6.2% ABOVE own exit. R:R 0.39 (+7.1% vs 18.0% stop). Not in otc_aggregate at all (VOLUME_SPIKE, premise intact: price +0.394, short +0.379). Broker data reconciles exactly (mktcap $1.39B, short 3,024,804 both match). 49% below 52wk high, +168% off low. |
 | 2026-09-08 | REAX | **PASS** | Corrupt data. predict.tsv target 197.69 on an $18.67 stock (+996.5%). Stop 8.24 is 47% BELOW the 52wk low 15.50 = unreachable. liquidty mktcap $4,069M vs Merrill $409M (10x); short_aggregate 37.5M sh vs Merrill 3.75M (10x, and exceeds the 21.9M shares outstanding). R:R 0.06. |
 | 2026-09-08 | BRBR | **PASS** | PM call. Gate fail x4: DVOL $29M, beta 0.01 off-mandate, OTC 0.24x fading, otc attribution NEGATIVE. |
 | 2026-09-08 | TMC | **WATCH** | PM call. Best remaining setup: 61% below 52wk high, +31% off an Aug low, price factor +0.4111 on a VOLUME_SPIKE (premise intact), PeakT 24d, clean slate (0 realized lots), CLEAR on all gates. Held back on R:R 0.95 nominal / ~0.6 at a beta-appropriate 15% floor (beta 3.28). Not bought, not passed. |
