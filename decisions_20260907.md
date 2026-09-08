@@ -255,3 +255,90 @@ float, `C_DTC 3.23`, `PeakT:21`, `prob 0.9698`, stop 150.09 = 10.6 vol-units bel
 
 WEN's market cap also checks out ($1.50-1.57B across the three files vs $1.53B on the web) — the
 files were accurate. Being accurate and being current are different things.
+
+---
+
+## Grounding sweep of the residual set, 2026-09-08
+
+Pre-screen applied first (new rule from the staleness finding): **15 of the 41 remaining names were
+out on the files alone** — 13 SPENT (Friday close already above `pred_target_px_20d`: AXTI BTDR
+CIFR DAVE FOUR GCT HLF HMY HUT IOVA IREN PENG SANM) and 2 BROKEN STOP (BAND stop 47.34 vs close
+43.77; CRDO stop 174.45 vs close 170.57). 26 stayed live and were ranked by R:R; the ones whose
+R:R could actually support a trade were grounded.
+
+## 32. WGS (GeneDx) — Claude: BUY candidate, second to BWXT.
+
+Grounding is constructive and independently corroborates the model:
+- Q2 volume and revenue **exceeded guidance**, **profitability achieved ahead of schedule**.
+- Canaccord (Kyle Mikson) raised PT to **$90** from $75, Buy. The model's `pred_target_px_20d` is
+  **90.29** — an independent analyst and the pipeline land on the same number.
+- +32% over the past month but still **-57% YTD**; market cap $2.57B; Mark Gardner appointed
+  President 06-15.
+
+Files: `ConvScore 174.7` with flags **A+B+C** (three legs converging), OTCx 1.06, otcFac 0.490,
+`C_DTC 6.39` on **33.0% of float short** — a real short base against improving fundamentals, and
+it takes 6+ days to cover. Stop 77.75 = **11.5 vol-units** below the close, robust. PeakT 6,
+beta 1.47, DVOL $41m, not held, no open order.
+
+Against it: **R:R 0.52** — only +5.0% upside against a 9.6% stop. The story is better than the
+geometry. That is the whole case against.
+
+## 33. OMER — Claude: PASS on structure, not on story.
+
+Grounding is better than expected: the **CHMP negative opinion was 2026-06-26** (stock -23% then),
+so it is ten-week-old news, not the cause of the 08-31 OTC spike. Narsoplimab is **FDA-approved
+since Dec 2025**, and YARTEMLEA's first full commercial quarter showed "strong momentum" (Q2
+reported 08-12). PT cut to $33, still far above 18.95. RSI 12.6, oversold.
+
+PASS anyway on trade structure: **stop 17.78 is 3.2 vol-units** below the close — the same
+hair-trigger tier as SQM (3.2) and BFLY (3.3) — for **+5.6% of upside**, PeakT 4. A stop inside the
+noise on a name with an EU re-examination pending is a coin flip, not an edge.
+
+## 34. CENX — Claude: PASS. Right story, wrong entry.
+
+Fundamentals ground well: Q2 EPS **$2.46 vs $2.30** est, **UBS initiated Buy** (Aug 2026), BMO Buy,
+40% stake in a new US smelter JV with EGA, buybacks expected as capex eases H2 2026, and persistent
+**50% US tariffs** on imported aluminum. But `D_RSI 98.2` — maximally extended, and one of the
+sell-side pieces is literally titled "The Rally Still Has Plenty Fuel." Buying at RSI 98 for +7.6%
+is chasing. Already held $1,390.
+
+## 35. EVCM — Claude: PASS. Falling knife with insiders selling into it.
+
+Down **~14% in a week**, trading near the **52-week low of $7.66** (~$8.07 vs $8.77 on 09-02), P/E
+45.72. Director **Eric Remer sold $117,961** (14,664 shares) across 09-02 → 09-04, i.e. selling into
+the decline. `ConvScore 52.3` with **no flags** and DVOL $1m. The OTC spike here reads as
+distribution.
+
+## 36. CNXC — Claude: PASS. Guidance cut.
+
+Stock **dropped 24%** on Q2; next-quarter revenue guide 2.4% below consensus; **full-year revenue
+guidance cut** $10.11B → $9.98B; **-45.6% YTD**; analyst PTs trimmed by $12 to $25. Already held
+$2,425. **Unresolved discrepancy: a search snippet quotes CNXC at $22.41 while `liquidty.tsv` has
+the 09-04 close at 32.16.** Verify on the broker screen before trusting either.
+
+## 37. LPL — Claude: PASS. Miss, no catalyst.
+
+Q2 EPS **$0.62 vs $0.69** est (revenue beat, $4.09B vs $3.85B). 52wk range 2.76-5.83, close 3.30 is
+near the low end. Next earnings 10-28, outside the 20d horizon. `ConvScore 73.6`, flag D only.
+
+## 38. QUBT — Claude: PASS. Sector beta, no company catalyst.
+
+Only news is sector-level: the American Quantum Competitiveness Act advanced 09-05, and quantum
+names fell on rising Treasury yields. Rosenblatt Buy, Cantor Hold. Beta **3.79**, R:R 0.48,
+PeakT 3. `ConvScore 243` with all four flags is the strongest convergence in the set, but on a
+speculative name it is measuring momentum crowding, not demand.
+
+## 39. HPK — Claude: PASS on the files, not grounded.
+
+`C_DTC 15.99` on **42.6% of float short** (above the 12.70 level STOK was passed at), **OTCx 0.20**
+against otcFac 0.639 — the IESC/RAMP pathology of leaning on a dead leg — plus RSI 86.7, PeakT 2,
+DVOL $3m, beta -0.40. Five independent fails; grounding could not rescue it.
+
+## Remaining live-but-unground names, all PASS on R:R below 0.5
+
+QDEL 0.51 (RSI 81) · CLVT 0.49 · MBX 0.44 · BTSG 0.35 (RSI 99.0) · NAMS 0.32 · NVCR 0.27 ·
+ACHR 0.27 · SMCI 0.26 (RSI 86.3) · IBRX 0.25 (RSI 94.4, DTC 15.4) · GPRE 0.22 · GFI 0.15 ·
+ACLS 0.12 · MTRN 0.09 · MUX 0.08 · DXC 0.04 · VYX 0.04 · SRPT 0.02 · IDCC 0.00.
+
+Below R:R ~0.5 the 20d upside does not pay for the stop distance regardless of what grounding
+returns, so they were not searched. Stated explicitly so the cut is auditable.
