@@ -342,3 +342,72 @@ ACLS 0.12 · MTRN 0.09 · MUX 0.08 · DXC 0.04 · VYX 0.04 · SRPT 0.02 · IDCC 
 
 Below R:R ~0.5 the 20d upside does not pay for the stop distance regardless of what grounding
 returns, so they were not searched. Stated explicitly so the cut is auditable.
+
+---
+
+## Thursday cache `poc/20260903/ALPHA.run.tsv` — 29 signals, and it is FRESHER than the file we used
+
+PM asked for the `*.run.tsv` signals on 09-08. On 09-06 the instruction had been to ignore these as
+"cache of older run". **That was backwards** — the Thursday run is a day newer and far stricter than
+`mm_prealpha/invest.tsv`, and it should lead, not be ignored.
+
+| | `mm_prealpha/invest.tsv` | `20260903/ALPHA.run.tsv` |
+|---|---|---|
+| Data date | `asofdate 2026-08-31` (4 sessions stale) | priced **09-03**; median gap to Friday's close **1.78%** |
+| Candidates screened | 111 output only | **2,111**, with the reject reason for every one |
+| Passed the gate | 111 | **29 (1.4%)** |
+| Schema | 37 factor columns, stops and targets | STATUS/REASON/TRADESCORE/CONFIDENCE/DECISION, **no stop or target** |
+
+Skip funnel (Thursday): TRADESCORE_LOW 1322 · CONFIDENCE_LOW 203 · ALPHA_SIGNAL_LOW 201 ·
+VOLUME_LOW 187 · **POSITION_GT_1K 143** · PASSED 29 · DECISION_NOT_BUY 25 · ILLIQUID 1.
+`POSITION_GT_1K` carries the basket and the value, e.g.
+`POSITION_GT_1K (BASKET=Consumer, MktValue $3,430 > $1K)` — the pipeline's own position cap is
+**$1K**, not the $2,500 SMALL used in this session's screens.
+
+`SMOOTH`, `EAR` and `DD` are empty on all 2,111 rows in this file.
+
+### Stability problem: 93% of the passed list turns over in one day
+
+Wednesday `20260902/ALPHA.run.tsv` passed **44** of 3,105. Thursday passed **29** of 2,111. **Only
+two names appear on both: BEKE and RXRX.** 27 of Thursday's 29 were not on Wednesday's list, and 42
+of Wednesday's 44 dropped off. A signal set that recycles 93% of its names overnight cannot be
+treated as a conviction list; it is a daily scan. Do not read a name's presence here as persistence.
+
+### CORRECTION — BAND and CRDO are not "broken stops", they are TRIGGERED stops
+
+Earlier logged as a data-integrity item (stop above close). Wrong diagnosis. Both stops sat correctly
+below spot when written and the stock has since traded through them:
+
+- **BAND**: spot 50.5304 (08-31) → **47.09 (Thu)** → 43.77 (Fri). Stop **47.3373** was -6.3% below
+  spot; price crossed it between Thursday and Friday (-7.1% in one session). **Held $1,098.**
+- **CRDO**: spot 197.5331 → stop **174.4525** (-11.7% below spot) → Fri close 170.57. Through it.
+
+So BAND is a **held position whose stop was breached on Friday** — an exit-side item, which is the
+PM's call, not a screening artifact. Flagged, not recommended.
+
+### Thursday's 29, ranked by TRADESCORE
+
+Columns: MaxRet / TradeScore / Confidence from the run; Thu$ = the run's price; Fri$ and Beta and
+DVOL from `liquidty.tsv`; DTC from `short_aggregate.tsv` (settle 08-14); RSI and Flags from
+`demand_converge.tsv`.
+
+BEKE 97.3 · BAND 96.8 · CADL 96.7 · GPCR 96.6 · REPL 96.5 · VYX 96.4 · HPP 96.1 · ZURA 93.7 ·
+FROG 93.0 · APTV 90.8 · RYAN 90.6 · ETSY 90.4 · MNSO 89.7 · SPRY 89.7 · PCG 89.6 · HSAI 89.3 ·
+HWM 88.5 · CSIQ 88.0 · RXRX 87.5 · EIX 87.2 · AON 86.1 · OABI 86.1 · ACHC 85.1 · HLF 85.0 ·
+RIG 85.0 · WING 85.0 · ZS 85.0 · APLD 84.6 · NVTS 84.6
+
+**17 of the 29 were never screened this session** — they are absent from the 111: BEKE, GPCR, HPP,
+ZURA, FROG, APTV, RYAN, MNSO, SPRY, PCG, HSAI, HWM, RXRX, EIX, AON, OABI, ACHC, RIG, WING, ZS,
+APLD, NVTS.
+
+**`mm_micro` contradicts the run on 9 of them** — GPCR, APTV, PCG, HSAI, HWM, CSIQ, ACHC, APLD and
+NVTS all carry `action=SELL` in `mm_micro/predict.tsv` while the Thursday run rates them STRONG_BUY.
+The two models disagree; neither is authoritative on its own.
+
+Notable: **NVTS** already has open BUY limit orders in `broker/open_orders.tsv` (IRA 2 x148,
+ROTH 1 x71) and shows **+$1,071** realized — the existing order agrees with Thursday's signal.
+**APLD** is the book's largest realized winner at **+$5,596** and is signalling again.
+**HWM** is held $2,344 (over the $1K pipeline cap but it passed anyway — worth checking why).
+
+No stops or targets exist in this file, so **R:R cannot be computed for the 17 new names.** Any
+entry off this list needs a stop set by hand.
