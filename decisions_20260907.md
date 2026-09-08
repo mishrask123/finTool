@@ -81,3 +81,76 @@ as disqualifying by default.
   micro target 197.69 vs price 18.67 (+996.5%), stop 47% below the 52wk low.
 - `RealizedPnlPct` in `report/pnl_realized_lots.tsv` is 100x too large (+34.2% shows as 3420.00%).
 - **LASR is a re-chase**: bought 08-03 @ 65.90, cut 08-19 @ 48.54 (-26.3%, 6 lots), now 40.06.
+
+---
+
+# Tuesday 2026-09-08 — session 2
+
+## Longs placed by PM (half size, limit orders)
+
+| Sym | otcFac | OTCx | R:R | Up% | Stop | Rsk% | Stop in vol-units | Beta |
+|---|---|---|---|---|---|---|---|---|
+| BFLY | 0.4359 | 1.44 | 5.14 | +21.5 | 7.05 | -4.2 | 3.3 | 3.41 |
+| PINS | — | — | — | — | 19.10 | -6.4 | 12.3 | 0.90 |
+| IESC | 2.4432 | 0.39 | 0.72 | +22.5 | 221.47 | -31.3 | 34.1 | 2.99 |
+
+PM took all three at HALF ($1,250) on limit orders. Claude gave no sizing and no limit price.
+
+## 22. WEN (Wendy's) — Claude: BUY candidate, best of the 49 undecided
+
+Only name in the residual set that clears every gate Claude can check offline.
+
+- `invest.tsv` row: `spot=8.2715 stop=7.7304 tgt20d=8.6942 prob=0.812083 src=OTC_SPIKE`
+- `reason: PeakPct:5.11% Holding:-0.0039 OTC:0.0354 Short:0.0000 Mixed:0.0204` · PeakT **7**
+- vs Friday close 8.03 → **Up +8.3% / Rsk -3.7%, R:R 2.22**
+- stop 7.73 sits **6.2 vol-units** below the close — robust, not a noise stop
+- `liquidty.tsv`: **Beta 0.35** — lowest in the whole 66-name set; the book is full of β 3-4
+- `demand_converge.tsv`: **ConvScore 268, flags A+B+C** (13F + OTC + short legs all converging), RSI 43
+- `short_aggregate.tsv` settle 2026-08-14: 32.5% of float short but **DTC 3.9** (max 8.46), short
+  count fell -13.2% vs prior period — passes the PM's d2c gate (STOK was passed at 12.70)
+- `mm_micro/predict.tsv` action = **BUY** — micro agrees with prealpha
+- DVOL $81M · not held · no realized history · no open GTC order
+
+## 23. BWXT — Claude: second-best, but position already near the cap
+
+R:R 1.88, prob **0.9698** (highest in the set), PeakT **21**, stop 10.6 vol-units (very robust),
+short 3.0% of float / DTC 3.23, DVOL $164M. Against it: **already held $2,211**, and convergence is
+thin — ConvScore 70, flag **A only** (13F, no OTC/short/demand confirmation).
+
+## 24. SQM — Claude: PASS. Headline R:R is a stop-placement artifact.
+
+R:R 6.93 tops the whole list, but only because `stop_loss_px` 75.25 sits **1.5%** below the 76.43
+close = **3.2 vol-units**, the same hair-trigger tier as BFLY (3.3) and OMER (3.2). The ratio is
+inflated by a stop inside the noise, not by edge. Also already held $1,919, ConvScore 64, flag D only.
+
+## 25. IT (Gartner) — Claude: WATCH, not buy. Move is nearly spent.
+
+Clean on liquidity (DVOL $208M), beta 0.53, DTC 4.15, stop 13.7 vol-units. But **PeakT:3** — the
+model puts the peak 3 days out — and `demand_converge` **RSI 80**. Both say late.
+
+## 26. INBX — Claude: PASS on the short gate.
+
+OTCx 1.50 (2nd highest) and R:R 1.31, but **DTC 14.4** on 38.4% of float. Above the level the PM
+passed STOK at (12.70).
+
+## 27. RAMP — Claude: PASS. Same pathology as IESC.
+
+otcFac 0.5242 (7th highest) but **OTCx 0.20** — OTC notional is running 80% below its own 7d average.
+The model is leaning on a leg that is currently dead. Upside only +5.6%.
+
+## 28. FDX — Claude: PASS. Nothing is converging.
+
+R:R 1.09 and clean short (DTC 3.2), but **ConvScore 37, no flags** — the lowest convergence of any
+name with a positive R:R. It is a large cap with a price target and no demand signal behind it.
+
+## New data-integrity items (2026-09-08)
+
+- **`dd` and `smooth` are constant across all 111 rows** — `dd = "HIGH: Extreme Gap Risk"` 111/111,
+  `smooth = "NOISY: Erratic Move"` 111/111. Zero discriminating information. `ear` is 108/111
+  `"STRUCTURAL: Factor Driven"`. Three more dead columns alongside the dead liquidity leg.
+- **14 of the 66 have no row in `otc_aggregate.tsv` at all** — ABCL BTDR CLVT CRDO FN GCT HLF IREN
+  NAMS NVCR QURE REAX SGML TMC. Their `otc` factor of 0.0000 means **unmeasured, not neutral**.
+  The "filter out negative otc" screen keeps them in as if they were clean.
+- **OTCx** (Claude's, not the pipeline's) = `latest_usd_notional_sum / avg_daily_usd_notional`
+  summed over `upiFisn` per ticker in `otc_aggregate.tsv`. Surge ratio, asof **2026-09-02**.
+  Distinct from the `otc` factor in `invest.tsv`, which is the model's attribution weight.
