@@ -9,6 +9,9 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-08 | REAX | **PASS** | Corrupt data. predict.tsv target 197.69 on an $18.67 stock (+996.5%). Stop 8.24 is 47% BELOW the 52wk low 15.50 = unreachable. liquidty mktcap $4,069M vs Merrill $409M (10x); short_aggregate 37.5M sh vs Merrill 3.75M (10x, and exceeds the 21.9M shares outstanding). R:R 0.06. |
+| 2026-09-08 | BRBR | **PASS** | PM call. Gate fail x4: DVOL $29M, beta 0.01 off-mandate, OTC 0.24x fading, otc attribution NEGATIVE. |
+| 2026-09-08 | TMC | **WATCH** | PM call. Best remaining setup: 61% below 52wk high, +31% off an Aug low, price factor +0.4111 on a VOLUME_SPIKE (premise intact), PeakT 24d, clean slate (0 realized lots), CLEAR on all gates. Held back on R:R 0.95 nominal / ~0.6 at a beta-appropriate 15% floor (beta 3.28). Not bought, not passed. |
 | 2026-09-08 | XMTR | **PASS** | PM call. Gate fail: OTC_SPIKE flow 0.47x, otc attribution NEGATIVE, R:R 0.3. |
 | 2026-09-08 | QURE | **PASS** | PM call. Gate fail: d2c 9.8 trapped, beta 0.23 off-mandate, R:R 0.7. No realized history (clean slate, not a re-chase). |
 | 2026-09-08 | KD | **PASS** | PM call. Gate fail: OTC_SPIKE with flow 0.02x — effectively dead flow. R:R 0.7. |
@@ -62,3 +65,7 @@ on signal quality (negative dominant factor, R:R 0.3), which the gates do not ca
 - **BFLY** — same class of problem, not yet inverted: 4.2% stop at beta 3.41.
 - `pnl/20260904.tsv` is a **14:32 ET intraday snapshot**, not the close; its PnL understates.
 - `limit_px` is the 20d TARGET, not an entry limit (identical to `pred_target_px_20d`, 111/111).
+- **REAX row is corrupt**: 10x share count and mktcap vs broker, short > shares outstanding,
+  micro target 197.69 vs price 18.67 (+996.5%), stop 47% below the 52wk low.
+- `RealizedPnlPct` in `report/pnl_realized_lots.tsv` is 100x too large (+34.2% shows as 3420.00%).
+- **LASR is a re-chase**: bought 08-03 @ 65.90, cut 08-19 @ 48.54 (-26.3%, 6 lots), now 40.06.
