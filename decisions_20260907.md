@@ -196,3 +196,62 @@ together — treat it as one correlated block, not seven independent signals.
 **Screening rule to apply before any further picks: reject any name where the Friday close is
 already above `pred_target_px_20d`.** The 09-08 picks survive it — WEN drifted **-2.9%** (8.27 →
 8.03) and BWXT **-2.3%** (161.28 → 157.59), i.e. both are cheaper than the model's entry assumption.
+
+---
+
+## Web grounding, 2026-09-08 — replaces the missing Gemini intraday grounding step
+
+Claude has `WebSearch` / `WebFetch` in this session. Some finance domains are blocked by the
+egress proxy (**finance.yahoo.com, stockanalysis.com, www.cnn.com** all returned `EGRESS_BLOCKED`);
+search result summaries and non-blocked sites work. Search snippets echoed BWXT "closed at $157.59
+on September 8" — that is Friday 09-04's close, the same number as `liquidty.tsv`. **Search engines
+restate stale closes as if live; do not take a price from a snippet.** Prices still come from the
+broker screen.
+
+## 30. WEN — Claude REVERSES decision 22. PASS.
+
+The pick was wrong, and grounding is what caught it. Every factor gate cleared because none of the
+files carry news:
+
+- **2026-08-27: Trian shelved the take-private.** Stock fell ~13% to $7.90 as the takeover premium
+  was wiped out. Trian is the largest holder.
+- **Full-year 2026 outlook withdrawn.** US same-restaurant sales **-7%**, US traffic **-12.5%**,
+  global systemwide sales -6.5%, lower net income, higher costs, EPS decline.
+- **Dividend cut to $0.07/qtr** to fund a five-point turnaround under new CEO Bob Wright.
+- Citi reaffirmed **Hold**, PT $8.25. Next earnings **2026-11-11**.
+
+The signal is `source=OTC_SPIKE` with `asofdate 2026-08-31` — **four days after the Trian collapse**.
+The OTC notional the model fired on is almost certainly unwind and repositioning flow out of a dead
+deal, not accumulation. `ConvScore 268 / A+B+C` was measuring the flow around a break. The 32.5% of
+float short is a broken-turnaround short, not squeeze fuel (`C_DTC 3.9` — it covers easily).
+
+**Generalised lesson: a high ConvScore on a name that just lost a deal premium is a sell-side
+footprint. The factor files cannot tell accumulation from liquidation — only grounding can.**
+
+## 31. BWXT — Claude: now the top pick of the residual set.
+
+Grounding cuts the other way here. The pullback has no fundamental break behind it:
+
+- **2026-08-26: US Army selected BWXT's BANR for the Janus program** — 5 companies, up to **$2.2B
+  over 5 years**; BWXT deploys a 20MW reactor at Fort Campbell, KY (construction late 2028,
+  operations early 2030s).
+- **2026-09-03: selected to develop the conceptual design for an NNSA Lithium Processing Facility.**
+- **Q2 2026: revenue +18%, GAAP EPS +14%**, Commercial Operations revenue +72%, operating income
+  +254%, **backlog +40% y/y**, 2026 guidance raised.
+- Wells Fargo upgraded to Equal Weight on valuation; Deutsche Bank kept Buy with a small PT trim.
+- **Investor Day 2026-09-29.**
+
+So the `OTC_SPIKE` at `asofdate 2026-08-31` sits five days after Janus — news-driven flow with a
+real positive catalyst behind it. Opposite polarity to WEN.
+
+Against it, stated plainly: stock is **down ~20-27% over 90 days** (momentum is against the entry);
+**insiders sold $9.0M over 12 months with no purchases**; convergence in the files is thin
+(ConvScore 70, **flag A only**); Investor Day on 09-29 is event risk inside the 20d horizon; and
+the book **already holds $2,211**, so a further add crosses the $2,500 SMALL line.
+
+File data that grounding confirmed rather than contradicted: market cap $14.44B (`liquidty.tsv`
+and `demand_converge.tsv` agree with the web), Friday close 157.59, float 99.2%, short 3.0% of
+float, `C_DTC 3.23`, `PeakT:21`, `prob 0.9698`, stop 150.09 = 10.6 vol-units below the close.
+
+WEN's market cap also checks out ($1.50-1.57B across the three files vs $1.53B on the web) — the
+files were accurate. Being accurate and being current are different things.
