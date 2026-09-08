@@ -411,3 +411,52 @@ ROTH 1 x71) and shows **+$1,071** realized — the existing order agrees with Th
 
 No stops or targets exist in this file, so **R:R cannot be computed for the 17 new names.** Any
 entry off this list needs a stop set by hand.
+
+## Thursday 09-03 signals sorted by otc factor descending (PM doing manual DD)
+
+**Only 7 of the 29 have an otc factor.** `otc` lives in `mm_prealpha/invest.tsv`; the other 22
+Thursday names are not in that file, so they have no otcFac, no target, no stop, no R:R and no
+PeakT. Those 22 are sorted by OTCx instead, below the divider. Thu$ is the run's own 09-03 price;
+Fri$ is `liquidty.tsv`'s 09-04 close.
+
+```
+  # Sym    otcFac    OTCx   OTC$m  DVOL$m Sector       Thu$    Fri$   MaxRet TScore    Up%   Rsk%   R:R  PkT  Beta Micro   Held$   Real$  Status
+  1 ETSY    0.5287    0.32      25     226 Consumer Cy   81.72   76.51   10.8%  90.4%   15.4    3.9  3.95   11  1.17 -           -       -  PASS
+  2 BAND    0.5030    0.55      17      35 Technology    47.09   43.77   27.0%  96.8%   23.4   -8.2     -   25  2.30 -        1098       -  STOP HIT
+  3 VYX     0.2133    1.05      16      21 Technology     8.98    9.14    9.0%  96.4%    0.4    9.0  0.04   30  1.24 -           -       -  PASS
+  4 CSIQ    0.0000       -       0      25 Technology    13.53   13.22   11.2%  88.0%    3.0   10.5  0.28   11  2.68 SELL        -    -152  -
+  5 HLF     0.0000       -       0      18 Consumer De   12.17   12.38   17.6%  85.0%   -2.0   13.0 -0.15   14  1.24 -           -       -  SPENT
+  6 CADL   -0.0017    0.73       1      15 Healthcare    12.97   12.78   14.0%  96.7%    6.6    9.0  0.74   14  2.03 BUY         -       -  -
+  7 REPL   -0.7150    1.16      33      46 Healthcare    15.29   15.04   58.8%  96.5%   33.8   40.8  0.83    4  1.21 BUY         -       -  -
+--- no otc factor (not in invest.tsv); sorted by OTCx ---
+  8 RYAN         -    1.47      49      52 Financial S   42.34   41.91   10.2%  90.6%      -      -     -    - -0.24 -           -       -  NEW
+  9 BEKE         -    1.16      55      76 Real Estate   17.91   17.92    8.5%  97.3%      -      -     -    -  0.83 -           -       -  NEW
+ 10 APLD         -    1.01      54     422 Technology    25.91   26.37    8.9%  84.6%      -      -     -    -  3.95 SELL        -   +5596  NEW
+ 11 HSAI         -    0.88      12      32 Consumer Cy   18.46   18.89   12.7%  89.3%      -      -     -    -  2.93 SELL        -       -  NEW
+ 12 PCG          -    0.80      52     686 Utilities     13.96   14.30   20.8%  89.6%      -      -     -    -  0.19 SELL        -       -  NEW
+ 13 MNSO         -    0.78      15      11 Consumer Cy    9.67    9.56   11.9%  89.7%      -      -     -    -  0.95 -           -       -  NEW
+ 14 HWM          -    0.75      85     662 Industrials  260.49  259.27    9.5%  88.5%      -      -     -    -  1.08 SELL     2344       -  NEW
+ 15 WING         -    0.74      20     126 Consumer Cy  113.15  109.21    9.8%  85.0%      -      -     -    -  1.01 -           -       -  NEW
+ 16 ACHC         -    0.70      15      36 Healthcare    28.38   28.13    8.1%  85.1%      -      -     -    -  0.94 SELL        -       -  NEW
+ 17 OABI         -    0.70       0      11 Healthcare     5.04    4.33    9.9%  86.1%      -      -     -    -  1.44 BUY         -       -  NEW
+ 18 SPRY         -    0.62       3      10 Healthcare     5.67    5.62   20.3%  89.7%      -      -     -    -  1.65 -           -       -  NEW
+ 19 EIX          -    0.59      52     371 Utilities     55.19   56.77   30.5%  87.2%      -      -     -    -  0.08 -           -       -  NEW
+ 20 ZS           -    0.50      35     512 Technology   172.73  169.80   21.9%  85.0%      -      -     -    -  1.09 -           -       -  NEW
+ 21 HPP          -    0.48       2       7 Real Estate   12.74   12.61   10.2%  96.1%      -      -     -    -  1.26 -           -       -  NEW
+ 22 RXRX         -    0.44       9      52 Healthcare     3.44    3.63    9.3%  87.5%      -      -     -    -  2.97 -           -       -  NEW
+ 23 NVTS         -    0.39       4     158 Technology    11.21   11.80    8.9%  84.6%      -      -     -    -  4.70 SELL        -   +1071  NEW
+ 24 GPCR         -    0.30      24      31 Healthcare    47.34   47.34    8.7%  96.6%      -      -     -    -  0.86 SELL        -       -  NEW
+ 25 AON          -       -       0     283 Financial S  327.00  323.09   11.7%  86.1%      -      -     -    - -0.20 -           -       -  NEW
+ 26 APTV         -       -       0     201 Consumer Cy   46.53   47.95   11.2%  90.8%      -      -     -    -  1.22 SELL        -       -  NEW
+ 27 FROG         -       -       0     182 Technology    90.61   87.60   21.6%  93.0%      -      -     -    -  1.49 -           -       -  NEW
+ 28 RIG          -       -       0     239 Energy         6.02    5.85   10.6%  85.0%      -      -     -    -  0.68 -           -       -  NEW
+ 29 ZURA         -       -       0       9 Healthcare     5.67    6.23    8.8%  93.7%      -      -     -    -  1.85 -           -       -  NEW
+```
+
+**The two models disagree at the top.** REPL scores TradeScore 96.5% / MaxRet 58.8% on Thursday but
+carries `otc = -0.7150` in the prealpha file — the most negative otc factor of any Thursday name.
+CADL is 96.7% with `otc = -0.0017`. Both would have been cut by this session's "filter out negative
+otc" screen, and both are `micro:BUY`. Five Thursday names (AON, APTV, FROG, RIG, ZURA) have no row
+in `otc_aggregate.tsv` at all, so their blank OTCx is unmeasured, not zero.
+
+PM is doing manual DD from here.
