@@ -154,3 +154,45 @@ name with a positive R:R. It is a large cap with a price target and no demand si
 - **OTCx** (Claude's, not the pipeline's) = `latest_usd_notional_sum / avg_daily_usd_notional`
   summed over `upiFisn` per ticker in `otc_aggregate.tsv`. Surge ratio, asof **2026-09-02**.
   Distinct from the `otc` factor in `invest.tsv`, which is the model's attribution weight.
+
+## 29. RIOT — Claude: PASS. Signal expired before it could be acted on.
+
+Model built the case off `spot_px 17.7455`; Friday 09-04 closed **21.80**, +22.8% in four sessions
+and **12.7% above** the model's own `pred_target_px_20d 19.3379`. Buying at 21.80 for a 19.34 target
+is R:R **-0.37** (-11.3% up, 30.7% stop distance) with `stop_loss_px 15.1049` acting as a 31%
+catastrophe floor at beta 3.86. `C_DTC 1.93` — the whole short book covers in two days, no squeeze
+fuel. Only `OTC:0.0841` / OTCx 1.22 favoured it; not enough to pay 12.7% through target.
+
+Broker screen (Merrill, 09/04 16:00 ET) agrees with the files on everything material: last 21.80,
+beta 3.86 vs 3.89, short 13.24% vs 14.3% at the 08-14 settle (shorts -3.0%). Only `market_cap` is
+stale in `invest.tsv` (6.99B vs 8.18B) because it is priced off the 17.75 spot. 52wk range
+11.50-30.32 → 55% of range, +90% off the low.
+
+## MAJOR data-integrity item — the prealpha run is 4 sessions stale
+
+**Every row in `poc/20260902/mm_prealpha/invest.tsv` carries `asofdate 2026-08-31`**, 111/111,
+despite the folder being named `20260902`. The folder name is not the data date.
+
+**27 of the 111 have already traded through their 20d target** between 08-31 and the Friday 09-04
+close. Their "BUY" is an expired signal, not an entry:
+
+| Sym | spot | Fri | tgt20d | drift | past tgt |
+|---|---|---|---|---|---|
+| EOSE | 2.93 | 3.88 | 3.23 | +32.4% | +20.2% |
+| HUT | 77.48 | 93.54 | 81.46 | +20.7% | +14.8% |
+| RIOT | 17.75 | 21.80 | 19.34 | +22.8% | +12.7% |
+| IREN | 37.22 | 44.68 | 39.96 | +20.0% | +11.8% |
+| BE | 213.13 | 252.87 | 226.76 | +18.6% | +11.5% |
+| CIFR | 14.58 | 17.74 | 15.92 | +21.7% | +11.4% |
+| BTDR | 10.41 | 12.38 | 11.52 | +18.9% | +7.5% |
+| ALMS | 9.38 | 11.10 | 10.38 | +18.3% | +7.0% |
+
+Then ASTS DAVE CORZ FOUR AEHR MARA PENG GCT OPK ALGT HLF SOFI AXTI ICHR LUMN SANM IOVA HMY STRL,
+all past target by less than 7%.
+
+The crypto-miner cluster (RIOT, IREN, HUT, CIFR, BTDR, CORZ, MARA) ran together and overshot
+together — treat it as one correlated block, not seven independent signals.
+
+**Screening rule to apply before any further picks: reject any name where the Friday close is
+already above `pred_target_px_20d`.** The 09-08 picks survive it — WEN drifted **-2.9%** (8.27 →
+8.03) and BWXT **-2.3%** (161.28 → 157.59), i.e. both are cheaper than the model's entry assumption.
