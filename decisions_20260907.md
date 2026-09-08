@@ -9,6 +9,9 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-08 | XMTR | **PASS** | PM call. Gate fail: OTC_SPIKE flow 0.47x, otc attribution NEGATIVE, R:R 0.3. |
+| 2026-09-08 | QURE | **PASS** | PM call. Gate fail: d2c 9.8 trapped, beta 0.23 off-mandate, R:R 0.7. No realized history (clean slate, not a re-chase). |
+| 2026-09-08 | KD | **PASS** | PM call. Gate fail: OTC_SPIKE with flow 0.02x — effectively dead flow. R:R 0.7. |
 | 2026-09-08 | VSEC | **PASS** | R:R 0.18 (+2.1% target vs 11.7% stop) — worst remaining. PeakT 9d = peak is today. OTC_SPIKE flow 0.89x fading. 3 of 4 factors negative. prob 0.69 / Cons 0.44 lowest in set. P/E 75. |
 | 2026-09-08 | LEU | **PASS** | PM call. Gate fail: d2c 9.3 (trapped), otc attribution NEGATIVE, R:R 0.2 (+2.0% vs 11.4% stop). |
 | 2026-09-07 | ABCL | **PASS** | 52wk-high veto: 11.43 vs high 12.58 = 9% below, after +316% off the low. R:R 0.3, PeakT 9d = peak now, loss-making. Reverses my batch-1 "live case" read, which was made without the 52wk range. |
