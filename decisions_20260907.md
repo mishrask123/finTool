@@ -9,6 +9,7 @@ Source universe: `poc/20260902/mm_prealpha/invest.tsv` (asof Mon 08-31, 111 name
 | Date | Symbol | Decision | Note |
 |---|---|---|---|
 | 2026-09-07 | ETSY | **PASS** | PM call. Was the best-supported name in the filtered cut (R:R 4.0, DVOL $226M, beta 1.17, grounded 09-04). Passed anyway. |
+| 2026-09-08 | **IESC** | **BUY — HALF** | PM call; PM doing own DD. Claude had said PASS on internal contradictions (otc factor +2.4432, highest in 111 and 2.5x next, vs OTC flow 0.39x and the row's own reason field saying OTC:0.2520; price -0.2713 and short -0.6400 both negative; liquidty mktcap $6.43B vs Merrill $12.85B = 2x break; PeakT 2d passed). Upside +22.5% to target 395.21. **Stop 221.47 = -31.3%, a genuine catastrophe floor at beta 2.99, sits 31% above the 52wk low 168.47.** Profitable: EPS 11.25, P/E 28.67, 21% below 52wk high, short 6.79% d2c 4.16 covering, no realized history. |
 | 2026-09-08 | **PINS** | **BUY — HALF** | PM call, overrides Claude PASS. Claude view was PASS: OTC_SPIKE with `otc` factor -0.0668 (negative, largest in row), OTC flow 0.88x avg ($154.3M vs $175.9M), PeakT 5d passed, prob 0.70 / Cons 0.40 weakest in file. PM took it anyway on risk shape: R:R 1.68 (+10.7% target 22.59 vs 6.4% stop 19.10), DVOL $194M, beta 0.90, d2c 3.26 with short -13.3% covering, BofA target $28.00 (+37%) and +20.65% 3yr growth, 47% below 52wk high, no realized history. **STOP 19.10 CONFIRMED USABLE** — 6.4% at beta 0.90, sits 38% above the 52wk low 13.84. No re-strike needed. |
 | 2026-09-08 | STRL | **PASS** | Claude rec. Target 486.04 vs Fri 486.49 = upside -0.09%, target met. PeakT 4d passed. OTC 0.91x fading, price -0.1019 and short -0.1008 negative. Note: harvested 6 lots 08-04->08-17 @ 520.00 -> 584.99, +$390 (+12.5%) in 13d; now 16.8% BELOW that exit — a re-entry lower, but not on this signal. |
 | 2026-09-08 | SGML | **PASS** | RE-CHASE. Held 3 lots, all exited 2026-08-10 @ 11.67 (net -$74.53 on $1,825, -4.1%); Fri close 12.39 = +6.2% ABOVE own exit. R:R 0.39 (+7.1% vs 18.0% stop). Not in otc_aggregate at all (VOLUME_SPIKE, premise intact: price +0.394, short +0.379). Broker data reconciles exactly (mktcap $1.39B, short 3,024,804 both match). 49% below 52wk high, +168% off low. |
@@ -61,6 +62,14 @@ no better than the survivors.
 All eleven hand-screens (ETSY, TNDM, STOK, TPB, TDC, AGYS, FN, MP, ABCL, LEU, VSEC) came back PASS — zero
 disagreements between PM judgement and the gate set. FN was CLEAR on the gates but failed
 on signal quality (negative dominant factor, R:R 0.3), which the gates do not capture.
+
+## Note on Claude's DD reliability (PM, 2026-09-08)
+
+PM: *"let me dd myself yours is not reliable."* Context: 20 of the first 21 calls were PASS.
+Claude was defaulting to PASS whenever a number could not be verified, which converts every
+data-quality problem into a veto and makes the output useless for finding entries. Flag the
+uncertainty, state which way it cuts, and let the PM weigh it — do not treat unverifiable
+as disqualifying by default.
 
 ## Standing data-integrity items
 
