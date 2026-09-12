@@ -460,3 +460,127 @@ otc" screen, and both are `micro:BUY`. Five Thursday names (AON, APTV, FROG, RIG
 in `otc_aggregate.tsv` at all, so their blank OTCx is unmeasured, not zero.
 
 PM is doing manual DD from here.
+
+---
+
+# 2026-09-12 — full book reconciliation and new-name screen
+
+## Capital deployed 09-04 -> 09-11 (Merrill, the six accounts in the PM's export)
+
+**Net new cost basis $42,593.06** — not the ~$35.2K the 9/5 scratch pad projected, because Batch A
+filled as well.
+
+| | |
+|---|---|
+| 16 brand-new names | +$28,126.09 |
+| 20 adds to existing | +$21,097.90 |
+| 1 exit — ARGX (cost) | -$5,160.00 |
+| 3 trims (OXY -$1,467.03) | -$1,469.13 |
+| **net** | **$42,593.06** |
+
+Cost basis 09-04 $495,589.29 -> 09-11 $538,182.35 (export implies $538,183.66; $1.31 rounding).
+New names: NVTS $4,319 · PCG $2,077 · APLD $2,042 · KEP $1,834 · RYAN $1,753 · FMX $1,740 ·
+RTO $1,693 · TXN $1,535 · BFLY $1,534 · PINS $1,500 · RYTM $1,498 · LEGN $1,452 · EIX $1,395 ·
+CIFR $1,350 · RCAT $1,222 · OMCL $1,181.
+
+## Book state at 09-11
+
+241 positions · equity $534,643.12 · unrealized -$3,540.54 (-0.66%) · 97 winners / 144 losers ·
+median position $1,982 · top-10 = 15.0% of equity · cash -$8,524.39 · total $1,099,132.35.
+
+**58 positions exceed the $2,500 SMALL cap and are 43.5% of equity.** Nine exceed $5,000.
+**OXY alone is $27,929.03 = 5.22%** (11x SMALL); with OXYWS (+697.98%) the complex is $30,141 = 5.64%.
+
+## Scorecard on this session's calls
+
+| Name | Result | Note |
+|---|---|---|
+| BFLY | +0.34% | filled |
+| PINS | -4.75% | filled |
+| IESC | **never filled** | limit not reached |
+| BWXT (Claude #1) | **-3.57%** | 150.12 vs 157.59 = -4.7% off 09-04 |
+| WGS (Claude #2) | not bought | |
+| BAND | **+22.54%** | 56.87 vs 43.77 = **+29.9%** in five sessions |
+| HWM | **-9.90%** | GTC filled at 254, then fell to 229.61; now $2,984.93, over cap |
+
+**Claude was wrong on BAND and the PM's own note was right.** Claude reported the stop as breached
+on 09-04 at 43.77 (factually true); the 9/4 scratch pad said "hold the accumulation, do not cut."
+The stop-breach framing was accurate and useless. Lesson: a breached stop on an accumulation the PM
+has explicitly marked do-not-cut is an observation, not a finding.
+
+Passes that held, none bought: CNXC -13.97% (28.24 — the $22.41 search snippet was wrong, the
+file's 32.16 was right for 09-04) · SQM -13.89% · SPT -6.98% · CENX -5.8% off 09-04 ·
+RIOT/WEN/EVCM/OMER/QDEL/AEHR/IT/INBX/RAMP/FDX all NOT HELD.
+
+## New-name screen — 193 signal names the PM does not own, 66 with 2+ source corroboration
+
+Cuts applied: micro=SELL · already decided this session · SPENT (close above target) · negative R:R ·
+C_DTC above the 12.7 level STOK was passed at · beta>3 spec (the class the PM dropped on 9/5).
+
+### 40. SAIC — Claude: the standout new name.
+
+Grounding is unambiguously positive:
+- Q2 EPS **$3.01 vs $2.31** consensus; revenue **$1.880B vs $1.766B**.
+- **FY27 guidance raised**: adj EPS to $10.65-10.75 from $9.90-10.10; revenue to $7.2-7.3B from
+  $7.0-7.2B.
+- PT raises: UBS $108 -> $123 (Neutral), Truist $110 -> $130 (Hold). Dividend $0.37, ex 10-09.
+- One caveat in the coverage: "higher guidance meets soft bookings."
+
+Files: **beta 0.31** · DVOL $62m · `C_DTC 7.2`, short 6.8% of float · ConvScore 118, flag A ·
+RSI 75 (extended) · prealpha + runWed, 09-02 decision PASS.
+
+Why it fits: government IT / defense services is uncorrelated with both the semis complex that drove
+this week's gains and the biotech that drove the losses. The book's problem is not idea supply, it is
+that 43.5% of equity sits above cap in correlated sleeves.
+
+### 41. BEKE — Claude: second, with a named country risk.
+
+- Q2 EPS **$0.42 vs $0.28** (+50% beat). 2026 Interim Report and cross-market buyback disclosure
+  both filed **09-08**.
+- +9.90% 1-month, +14.07% YTD at $18.32. SWS DCF fair value **$24.93** vs $18.32.
+- **The only name appearing on BOTH ALPHA.run days**, and Thursday's highest TradeScore at 97.3%.
+
+Files: beta 0.83 · DVOL $76m · short **3.9% of float**, `C_DTC 10.3` · ConvScore 52, no flags ·
+RSI 38. Against it: China residential property platform — a single policy decision moves it, and
+convergence is thin.
+
+### 42. AON — Claude: watch, not buy. Lowest beta available but no convergence.
+
+`beta -0.20` and short **1.6% of float / DTC 3.6** — the cleanest short profile of all 66. Consensus
+Moderate Buy, PT $399.12 vs $323.09. Q2 EPS $3.81, revenue +2.2%.
+
+Against: the **$17B USI Insurance acquisition** is not EPS-accretive until **2028**, with stated
+investor concern on leverage and execution; CEO Greg Case acknowledges a **flat near-term P&C
+market**. ConvScore 49 with no flags — nothing is converging. A 2028 payoff is outside a 20-day
+horizon.
+
+### 43. QDEL — Claude: PASS, against the PM's own note.
+
+The 9/4 scratch pad ranks QDEL the **closest** velocity-turn candidate, and three pipeline models
+(inv111 + meanrev + prealpha) corroborate it — the strongest cross-model agreement in the set.
+Grounding still says no:
+- Q2 revenue +2% overall but **China -23%** and a softer respiratory market.
+- **Full-year guidance revised down and free cash flow guidance WITHDRAWN.**
+- 3 analysts average **Hold** with a 12-month PT of **$12.00** — *below* the 13.97 close.
+
+Withdrawn FCF guidance is the same pattern that killed WEN. Flow can be real while the business is
+impaired; the flow models cannot see a withdrawn guide.
+
+### 44. WING — Claude: PASS. Comps down five straight quarters.
+
+Same-store sales **-7.5% in Q2 2026**, the fifth consecutive decline, and the updated 2026 outlook
+guides domestic SSS to **-4% to -6%**. Upgraded sell->hold only after a >50% price fall; fair value
+trimmed to ~$286 from ~$305. It also already moved: **+6.0% on 09-11 to $117.10** vs 109.21 on 09-04,
+so the RSI 13 oversold setup the files showed is spent.
+
+### 45. MNSO — Claude: PASS. Loss-making and a flagged capital-allocation problem.
+
+Q2 2026 **net loss CN¥289.2M**, LPS CN¥0.96 against a CN¥1.60 profit a year earlier, on revenue
++17%. Downgraded to **HOLD from BUY** on "questionable capital allocation and execution risks", PT
+cut ~$19.30 -> $14.32 (one house $26 -> $16). The Yonghui Supermarket stake is cited as
+misallocation.
+
+## Note: no stops exist for any of the three candidates
+
+SAIC, BEKE and AON are absent from `mm_prealpha/invest.tsv`, so there is no target, no
+`stop_loss_px`, no R:R and no PeakT for any of them. A stop has to be set by hand.
