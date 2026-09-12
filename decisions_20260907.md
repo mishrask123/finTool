@@ -584,3 +584,137 @@ misallocation.
 
 SAIC, BEKE and AON are absent from `mm_prealpha/invest.tsv`, so there is no target, no
 `stop_loss_px`, no R:R and no PeakT for any of them. A stop has to be set by hand.
+
+---
+
+# 2026-09-12 — gain-protection framework
+
+Long design thread with the PM. Recorded because several conclusions reversed my own earlier
+positions, and two of my framings were simply wrong.
+
+## Where I was wrong
+
+1. **"The floor and the buffer collide."** I claimed a 15% locked floor and a 15% buffer were
+   simultaneously satisfiable only above +35.3%. Wrong premise: in the PM's method the floor is an
+   **output** of (price, cost, buffer), not an input. There is no collision.
+2. **"OXY is an 11x sizing breach."** OXY/OXYWS are a **hedge**, not trades. I repeated
+   "58 positions / 43.5% of equity over cap" several times with OXY at the top. Correct figure is
+   **57 / 40.5% of the trading book**, and the hedge is not size-governed at all. Trading-book
+   beta ex-hedge is **1.54**, not 1.43; the hedge contributes **+$11,072** against the trading
+   book's **-$14,611**.
+3. **BAND.** I reported the stop as breached on 09-04 at 43.77 (true) and read it as a finding.
+   The PM's 9/4 note said "hold the accumulation, do not cut." It is 56.87 — **+29.9% in five
+   sessions.** Accurate and useless.
+
+## Realized-lot findings (recomputed — the file's own pct column is broken)
+
+`RealizedPnlPct` is unusable: SMH shows +1.5% on $13,200 of profit. Recomputed from
+`RealizedPnl / AcquisitionCost` across 1,107 lots, 714 winners (64%):
+
+| | |
+|---|---|
+| winner median | +15.3% |
+| p75 / p90 / p95 | +37.0% / +82.4% / +128.7% |
+| max | +315.8% |
+| loser median / p10 / worst | -10.2% / -33.5% / -77.3% |
+
+**78.9% of all realized profit came from lots past +30%; 45.8% from past +100%.** The +20-30%
+band produced **6.9%**. A hard 20-30% profit-target rule would have truncated four-fifths of the
+book's profit — so option (a) is refuted by the PM's own history. Winner median holding period
+**61 days**, loser median **60 days** — holding period currently carries zero information.
+
+## Volatility, not beta, sets the buffer
+
+Same-beta pairs from `liquidty.tsv`: WVE (β1.30, vol 1.68%) vs WWD (β1.27, vol 0.38%) —
+**4.4x different daily range at the same beta**. A flat 10% buffer spans 6.5 to 28.4 sigma-days
+across the book. Fixing `k` fixes the stop-out *probability*; the percentage then varies.
+
+## The gain constraint — the one structural result
+
+```
+hi = G/(1+G)    =>    stop = P(1 - G/(1+G)) = C(1+G)/(1+G) = C exactly
+```
+
+Capping the buffer at `G/(1+G)` **guarantees the stop never sits below cost.** Structural, not a
+post-hoc check. Resolves the 68-name / $140,181 group that had positive P&L but implied stops
+below cost.
+
+## Cluster risk — why naive per-name stops are dangerous here
+
+On a single -5% index day, beta-scaled, **$64,176 = 12.7% of the trading book** would stop out
+simultaneously. Per-name stops are individually sound and collectively correlated. Hence the
+8%-of-equity cluster cap and the FOMC/CPI blackout in the spec.
+
+## Sizing argument — PM is right
+
+$2,500 = **50bps of trading-book equity** (23bps of the $1.1m total). Worst single realized lot
+in history -77.3%, so max single-name damage is **0.38% of equity**; to zero, 0.50%. Manual
+discretion at that size is lower-risk than automated stops, which would add the clustering
+failure above. But two caveats: the **sleeve** does not diversify (47 semis/AI names x 50bps =
+19.7% of equity at beta ~3; a -5% day costs 3.0% of equity = **8x** the worst single-name
+outcome), and ten positions run 96-136bps, 2-2.7x SMALL.
+
+## >100-day loser rule — discretionary drift check, not a gate (PM correction)
+
+Five names today: CAT -9.43%/121d, CTOS -9.24%/120d, GFI -7.49%/144d, GOOGL -5.30%/113d,
+NVO -3.86%/113d. $7,179 = 1.4% of equity, nothing worse than -9.5%. Well calibrated. Note the
+real damage (RARE -47%, PL -31%, STM -27%, WVE -23%) is all **under** 100 days and has not
+triggered it yet.
+
+## Alpha-modulated buffer — tested, null result
+
+Modulating the vol-scaled buffer by RSI/VEL/PeakT does **not** rescue the negative-floor group:
+27 names clear a positive floor vol-only, 27 modulated. Two rescued (NRGV, VST), two lost.
+Widening washed names pushes them further negative. **But** it correctly surfaced ten
+washed-and-turning names (DAC, VALE, ENTG, ALT, PFE, TM, PUMP, MTSI, CEG, MRP) — early in their
+move, nothing to protect yet. So the alpha state decides **whether the stop question applies**,
+not the buffer size. Three regimes: ALPHA_AHEAD (no stop), ALPHA_WORKING (buffer + ratchet),
+ALPHA_SPENT (tighten/harvest).
+
+## k, and why it is banded and manual
+
+`k` = how many of the name's own typical days the stop tolerates. `buffer% = k x SIGMA20`.
+**Provenance: the PM's stated 15% on high-beta implies k ~ 10-14** (AXTI 9.8, POET 10.5,
+NVTS 11.9, QBTS 12.9, BE 13.0, ASTS 13.5, APLD 14.3). Not fitted to anything.
+
+PM decision: **`k` is a per-name band from {8,10,12,15,20}, chosen manually, set once.** Reasons
+it beats a continuous formula here — legibility, order stability, discretion sits where the PM
+said it belongs, and auditability (you can later separate PM judgment from model drift).
+
+The honest tension the band resolves: **`k` is noise tolerance, `k x sigma` is give-back
+tolerance, and on a high-sigma name the two conflict.** DAC at k=20 gives 4.6% give-back; BE at
+k=20 gives 23.0%. No formula settles that.
+
+**AXTI is the instructive limit:** G=12.66%, sigma=1.53 — even k=8 gives 12.3% while the gain
+allows only 11.2%. **No band protects it.** Correct output is no order.
+
+**Rollout recommendation:** start with the nine sigma<0.40 names (DAC ITUB DE VALE PBR KBR HAFN
+DHT TRMD) where the gain constraint never binds and no band judgment is needed. The semis/AI
+sleeve is where protection is most wanted and the method weakest.
+
+## Broker mechanics — PM correction accepted
+
+PM observes Merrill's `TrailingStopLimit` does not ratchet: it fixes stop and limit $ off spot at
+placement. General documentation describes a ratcheting **Trailing Stop** — a different order
+type, which Merrill's own list does not even enumerate alongside TrailingStopLimit. Unresolved;
+one call to Merrill settles it. **The spec does not depend on it** — every order is a plain
+stop-limit at an explicit price, re-issued on AMEND.
+
+Four live orders were placed and not adjusted (PM out of office): PBR 7% (+19.98%), DAC 5%
+(+15.21%), ITUB 7% (+13.55%), ALT 5% (+11.22%) — all protecting entry, not gain, if static.
+ARGX's order is resolved: **by design**, 7% stop on a >90-day lot at +25% to force the rotation.
+
+## Deliverable
+
+`spec/spec_gain_protect_buffer_rev2.md`, also on Drive at `quantbot/tablet/` as
+`spec_gain_protect_buffer_rev2.md` (id `1N5o-GQ9qVuB3ebRGcu9dgB7mXEKqpnTO`, 26,058 B).
+Rev 1 renamed `spec_gain_protect_buffer_rev1_SUPERSEDED.md`.
+
+Rev 2 adds: banded manual `k` with a set-once lifecycle (§2.7, §7.1), a normative `SIGMA20`
+calculation (§3A — log returns, 20 sessions, Bessel-corrected, non-zero mean, winsorised at
+5x SIGMA60, 5-day median smoothing, regime-shift flag), and the sigma-asymmetry proof (§3A.8:
+because the ratchet takes `max(prior, raw)`, a vol spike cannot loosen an existing stop — sigma
+drift can only tighten). Nine open decisions in §15.
+
+**Nothing in this thread is an order or a recommendation to trade.** Levels, sizes and every exit
+remain the PM's.
