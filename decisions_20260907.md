@@ -886,3 +886,58 @@ independent of the sigma source; only the population count depends on the proxy.
 **Disposition: added to §15 open decisions, not acted on.** Raising or removing `hi_abs`, or
 reformulating `lo` so it cannot cross `hi`, is the PM's call and is the wrong thing to decide
 from an iPad mid-tranche.
+
+## SPIR / TGTX / CERS / CRMD dispositions (2026-09-13)
+
+**TGTX, CERS, CRMD: PASS** — grounded by PM. No price instruction, nothing parked.
+
+**SPIR: $1,500 at $10.25/share.** Not held, so an open: 146 sh = $1,496.50, leaving $2,503.50
+of room to the $4,000 cap. $10.25 is **14.4% below** the only price reference available ($11.98,
+`liquidty.tsv` Close 2026-09-04, which `demand_converge` repeats exactly) — the deepest
+below-market limit of the tranche.
+
+Tranche state: $48,500 - $1,484.00 (COHU) - $1,494.50 (MRAM) - $1,496.50 (SPIR)
+= **$44,025.00 uncommitted**.
+
+### CORRECTION to the MRAM entry above: C_DTC is one source, not two
+
+The MRAM entry claims its days-to-cover was "independently corroborated" across
+`demand_converge.tsv` and `short_aggregate.tsv`. **That is wrong.** Checked across five names,
+`demand_converge.C_DTC` matches `short_aggregate.latest_days_to_cover` to the digit:
+
+| name | dc `C_DTC` | short_agg `latest_days_to_cover` |
+|---|---|---|
+| SPIR | 6.25 | 6.25 |
+| TGTX | 12.59 | 12.59 |
+| CERS | 5.07 | 5.07 |
+| CRMD | 11.05 | 11.05 |
+| MRAM | 2.44 | 2.44 |
+
+`C_DTC` is **derived from** `short_aggregate.tsv`, not measured independently. Consequences:
+
+1. The C leg (squeeze fuel) in the bounce-back score carries **one** source, not two. The
+   apparent cross-file agreement is propagation, not confirmation.
+2. `short_aggregate.tsv` settles **2026-08-14**. So every short-interest and DTC figure on the
+   32-name list is **30 days stale**, not the ~09-07 asof of `demand_converge`. The screen's
+   staleness is worse on the C leg than previously logged.
+3. The PM's DTC <= 12.7 gate is therefore being applied to month-old data.
+
+Price columns are *not* uniformly propagated: SPIR 11.98/11.98 and CERS 2.59/2.59 match, but
+TGTX 55.99/56.71 and CRMD 8.43/8.47 differ. So `demand_converge` is partly rebuilt per name.
+Do not assume any column is independent without checking it the way this was checked.
+
+### Healthcare cluster note
+
+Held Healthcare (by `demand_converge.Sector`): **35 names, $83,185 = 16.5% of the $504,502
+trading book**, of which **27 are negative totaling $69,603**. TGTX + CERS + CRMD at HALF each
+takes the sleeve toward ~17.7%.
+
+The PM stated on 2026-09-12 that Paula's catalyst calendar is the right instrument for biotech
+rotation timing and **deferred it to next week as a separate project**. These three would be
+placed before that instrument exists. Flagged as the one cluster on this list the PM has already
+said they want timed differently. Not a recommendation either way — the PM grounded all three.
+
+Name-level: TGTX is largest and most liquid ($102.9m DVOL, 30,109,741 sh short, 22.3% float) but
+its DTC 12.59 sits against the 12.7 gate. CERS is the thinnest name on the whole list ($5.2m
+DVOL, $2.59/share) — dilution risk is invisible to the factor files, so the raw-filing step
+carries the weight there.
