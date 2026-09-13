@@ -1187,3 +1187,71 @@ SUPV, ASTS, HIMX, LRCX.
 
 **Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
 remain the PM's.
+
+## FLY disposition (2026-09-13) — and the cap-basis question becomes material
+
+PM instruction: *"Add fly 20/share to 2k."* Note the target is **$2,000, not $4,000** — the PM is
+sizing per name rather than filling every add to the cap. FLY is the highest-sigma add so far
+(beta 3.5848, annualised vol 1.1086), so a half-size target is consistent with the risk.
+
+### The two bases diverge by 9 shares
+
+FLY is held at **-17.14%** — the deepest loser touched in this tranche:
+
+| basis | held | room to $2,000 | order | becomes |
+|---|---|---|---|---|
+| **market value** | $887.46 | $1,112.54 | **55 sh = $1,100.00** | $1,987.46 |
+| **cost basis** | $1,071.04 | $928.96 | **46 sh = $920.00** | $1,991.04 |
+
+**9 shares, $180 — 16% of the order.** ENTG's version of this was 1 share and was logged without
+resolution; this one is material.
+
+It also runs the **opposite way**: for a winner (ENTG, +10.53%) cost basis buys *more*; for a
+loser (FLY, -17.14%) it buys *less*, because the $1,071.04 already spent counts against the
+budget even though only $887.46 of it survives.
+
+**The substantive distinction:** market value targets **exposure**; cost basis targets **capital
+at risk**. For a rotational book where "$2,500 SMALL" describes what is put on, cost is the
+doctrine's reading. But the PM's own over-cap analysis (57 positions / $204,426 / 40.5%) is
+computed on market value. **Logged as 55 sh / $1,100.00 at market value**, consistent with the
+ENTG entry. **Both entries to be corrected together once the PM states the convention.**
+
+### Divergence across the 13 remaining held candidates
+
+Over $200: **BAND** -$261.52 (+22.54%), **ACMR** +$228.85 (-9.58%), **NOK** +$218.65 (-11.58%).
+Then ASTS -$134.47, SUPV +$50.03, LRCX +$40.62, EE +$32.10, HIMX +$30.70, MTSI -$24.38,
+TRU -$14.28, ALT -$96.99, PUMP -$66.59, MRP -$1.62. So the convention call changes three of the
+remaining thirteen by a meaningful amount and is immaterial for the other ten.
+
+### FLY specifics
+
+Firefly Aerospace Inc., Industrials / Aerospace & Defense. $20.00 is **7.7% below** both
+references (`liquidty.tsv` Close 2026-09-04 and `demand_converge` Price ~2026-09-07 both print
+**$21.67**). `D_RSI 0.1` — maximally washed — `D_VEL 96.4`, `D_DIST 61.9`, `ConvScore 168.1`,
+`Flags A+D`. A leg `A_NetFlow +26.77%`, `A_NewCt 69` vs `A_ClosedCt 27`, `A_Mgrs 227`.
+DVOL $60.4m, mcap $3,628m, `Float(%) 60.2`, `PE` blank.
+
+**C leg is empty despite an 11.0% short:** `C_ShortChg +1.6%` (building), `C_DTC 3.21` against
+`max_days_to_cover 3.48` — the position clears in three sessions, so no squeeze fuel. Another
+instance of the `FUEL`-magnitude blind spot logged in the AIRJ entry.
+
+`DataDays 272` (~13 months) — shortest history of any name touched, so beta and vol rest on very
+little data. **Unprotectable:** daily sigma 6.98pp → `8 × sigma = 55.9%`.
+
+### Tranche state — 10 orders
+
+| | value |
+|---|---|
+| placed | **$16,347.95** |
+| uncommitted of $50,000 | **$33,652.05** |
+| weighted beta | **2.94** |
+
+Sector mix: Technology $8,510.50 (52.1%), Industrials $4,868.45 (29.8%), Energy $1,485.00 (9.1%),
+Financial Services $1,484.00 (9.1%). Names with beta > 3 now $11,098.00 = **67.9%** of placed
+dollars into the 2026-09-16 FOMC.
+
+Held names still awaiting grounding (13): ALT, MTSI, BAND, ACMR, NOK, PUMP, MRP, EE, TRU, SUPV,
+ASTS, HIMX, LRCX.
+
+**Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
+remain the PM's.
