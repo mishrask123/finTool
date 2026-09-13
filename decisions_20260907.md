@@ -941,3 +941,61 @@ Name-level: TGTX is largest and most liquid ($102.9m DVOL, 30,109,741 sh short, 
 its DTC 12.59 sits against the 12.7 gate. CERS is the thinnest name on the whole list ($5.2m
 DVOL, $2.59/share) — dilution risk is invisible to the factor files, so the raw-filing step
 carries the weight there.
+
+## VTS disposition (2026-09-13)
+
+**$1,500 at $16.50/share.** Not held, so an open: 90 sh = $1,485.00, leaving $2,515.00 of room
+to the $4,000 cap. Vitesse Energy, Oil & Gas E&P.
+
+Below market on both references: $17.78 (`liquidty.tsv` Close 2026-09-04) and $17.41
+(`demand_converge` Price ~2026-09-07) — 7.2% and 5.2% below respectively.
+
+Tranche state: $48,500 - $1,484.00 (COHU) - $1,494.50 (MRAM) - $1,496.50 (SPIR)
+- $1,485.00 (VTS) = **$42,540.00 uncommitted**.
+
+### VTS is the first name in this tranche the stop spec can protect
+
+Annualised vol 0.3231 → daily sigma ~ 2.04pp → `8 × sigma = 16.3%`, under the `hi_abs = 0.30`
+ceiling. So `lo > hi` never fires structurally (cf. the 2026-09-13 finding above); VTS becomes
+protectable once `G/(1+G) >= 0.163`, i.e. at roughly **+19.5% gain**.
+
+| name | daily sigma | `8 × sigma` | protectable under §7.4 |
+|---|---|---|---|
+| VTS | 2.04pp | 16.3% | **yes**, from ~ +19.5% |
+| COHU | 4.20pp | 33.6% | no |
+| RKLB | 5.99pp | 47.9% | no |
+| SPIR | 6.54pp | 52.3% | no |
+| MRAM | 7.24pp | 57.9% | no |
+
+### Two VTS details not seen elsewhere on the list
+
+1. **Shorts were covering, not building.** `short_aggregate` settle 2026-08-14: 6,724,085 sh
+   short, **-5.73%** from 7,132,723 prior. DTC 11.88 against max_days_to_cover 17.49. A
+   shrinking short book into a washed price (D_RSI 1.2, D_VEL 94.2) is the C leg pointing the
+   right way, not merely being large. Every other C-leg name on this list was scored on the
+   *size* of the short, not its direction.
+2. **Institutional breadth for a $749m company:** `A_Mgrs 182`, `A_NewCt 27` vs `A_ClosedCt 20`,
+   `A_NetFlow +10.56%`.
+
+### It corrects the tranche's beta concentration
+
+Placed so far, $7,435.00 at a **weighted beta of 2.81**:
+
+| name | dollars | beta |
+|---|---|---|
+| RKLB | 1,475.00 | 3.75 |
+| COHU | 1,484.00 | 2.73 |
+| MRAM | 1,494.50 | 4.17 |
+| SPIR | 1,496.50 | 3.66 |
+| VTS | 1,485.00 | **-0.24** |
+
+The first four all point the same way into the 2026-09-16 FOMC (~69% odds of +25bp). VTS is the
+only priced name that does not. Held Energy by `demand_converge.Sector` is 15 names / $56,679;
+VTS makes 16. The book already carries 13 negative-beta names ex-OXY hedge (APA -0.71,
+CBOE -0.36, PARR -0.36, RSG -0.35, BP -0.31, RYAN -0.24, KO -0.24, PBR -0.19, VIST -0.13,
+MOH -0.11, HRL -0.07, TRP -0.05).
+
+**Caveats.** DVOL $7.2m — the thin tier. `DataDays 917` (~3.6 years, vs the book median 2,763):
+VTS has a short price history, so both its beta and its volatility rest on less data than the
+figures suggest. Its short-interest data is from the 2026-08-14 settle and is 30 days stale, per
+the correction logged above.
