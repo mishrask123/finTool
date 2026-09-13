@@ -718,3 +718,106 @@ drift can only tighten). Nine open decisions in §15.
 
 **Nothing in this thread is an order or a recommendation to trade.** Levels, sizes and every exit
 remain the PM's.
+
+---
+
+# 2026-09-13 — $50,000 deployment tranche: screen and dispositions
+
+## Mandate
+
+PM holds $600,000 in money market, deploying **$50,000** into deep-discount alpha++ names,
+existing or new. **Sizing cap raised from $2,500 to $4,000** (SMALL), stated reason: invested
+capital is rising. HALF therefore reads $2,000, not $1,250.
+
+RKLB parked first: $1,500 GTC limit at $59/share (25 sh = $1,475, taking the position to 49 sh,
+cost basis $3,263, avg $66.59). The 09-11 mark was $62.97, so the limit sits 6.3% below market
+and only fills on weakness. This structure — GTC limit below market — is better than the
+"wait until Thursday" advice I gave, because it converts FOMC Wednesday from a timing risk into
+a fill mechanism without requiring a view on the outcome. Recorded as the PM's call, adopted as
+the recommended structure for the whole tranche.
+
+## Screen (2026-09-13)
+
+Source: `input/demand_converge.tsv`, asof ~2026-09-07 — **six sessions stale, and RSI/VEL are the
+entire ranking**. Logged as the screen's principal weakness.
+
+Hard gates, all must pass: `DVOL >= $5m` · `DTC <= 12.7` (the STOK threshold) · not micro-SELL
+in `poc/20260902/mm_micro/predict.tsv` · `RSI < 35` (washed) · `VEL >= 50` (turning, confirmed) ·
+room to the $4,000 cap >= $1,000. **274 of 6,150 names passed.**
+
+Bounce-back rank:
+
+    score = 0.30*VEL + 0.22*WASH + 0.20*SUPPORT + 0.14*CONV + 0.08*FUEL + 0.06*DIST
+    WASH    = (35 - RSI)/35 * 100
+    SUPPORT = 40*(A_NetFlow>0) + 30*(A_NewCt>A_ClosedCt) + 30*('A' in Flags)
+    FUEL    = min(100, C_Short(%flt)*5) if C_Short(%flt) >= 3 else 0
+    CONV    = min(100, ConvScore/200*100)
+
+Then a **leg filter**: held names need >=2 legs or a live DIST; new names need **>=3 legs**
+(A+C+D or better). Crypto-miner cluster excluded outright as correlated and already carried.
+
+### The leg filter is the substantive change from the 09-12 list
+
+It dropped 12 of the 24 held names given on 09-12 — ORA, AMRC, RIO, TM, PFE, VALE, ITUB, DAC,
+PAYP, PBR, SQM, INTC — because their only leg was **D**. Demand turning with no 13F accumulation
+under it is a turn without a bid. Recorded as a reusable screen rule: for bounce-back candidates,
+require the A leg, not just the D leg.
+
+### Output: 32 names
+
+Held, room to $4,000 (13): PENG 93, ENTG 91, FLY 91, ALT 84, MTSI 81, BAND 79, ACMR 79, NOK 78,
+PUMP 76, MRP 69, EE 65, TRU 42, SUPV 37. Cut only by a 6-per-sector cap on Technology, and
+therefore still live: ASTS 77, HIMX 77, LRCX 74.
+
+New (16): INDI 98, SIDU 93, COHU 92, MRAM 91, TGTX 91, CERS 90, CRMD 90, SPIR 88, VTS 87,
+AIRJ 84, ROOT 80, EVGO 80, SG 79, EZPW 77, ANDG 75, ETOR 74.
+
+**Zero overlap with the prealpha 111.** Different model, different failure mode — this list is
+not a second opinion on that one.
+
+### Capital arithmetic
+
+$50,000 - $1,500 (RKLB) = **$48,500**. Filling all 13 held names to the $4,000 cap = $31,561;
+16 new at $2,000 HALF = $32,000; total $63,561, **over by $15,061**. The list is a selection
+menu, not a program.
+
+## PM dispositions (2026-09-13, after PM's own grounding)
+
+| name | disposition |
+|---|---|
+| INDI | **PASS** — grounded by PM |
+| SIDU | **PASS** — grounded by PM |
+| COHU | **$1,500 at $53/share** |
+
+COHU is not a held name (book value $0), so this is an open, not an add. $1,500 at $53 = 28 sh
+= $1,484, leaving $2,516 of room to the $4,000 cap.
+
+### Flagged to PM: the COHU limit is above both local reference prices
+
+| source | asof | COHU |
+|---|---|---|
+| `input/liquidty.tsv` Close | 2026-09-04 | **$50.72** |
+| `input/demand_converge.tsv` Price | ~2026-09-07 | **$45.98** |
+
+$53 is 4.5% above the 09-04 close and 15.3% above the 09-07 print. Unlike the RKLB $59 limit,
+a $53 buy limit against either reference fills immediately at the ask rather than on weakness.
+Two local sources disagree with the limit and with each other; the live broker screen (step 7)
+settles it and is the PM's veto. Noted, not contested.
+
+## Standing caveats carried into this tranche
+
+1. **Nothing on the list was grounded by me.** WEN and QDEL both cleared structurally identical
+   screens and died on grounding. The A-leg requirement raises the base rate; it does not prove
+   a bid. The factor files cannot distinguish accumulation from liquidation.
+2. `demand_converge.tsv` is six sessions stale and RSI/VEL are the whole ranking.
+3. FOMC Wednesday 2026-09-16, ~69% CME odds of a +25bp hike. Highest-beta names on the list:
+   MRAM 4.16, ACMR 3.66, SPIR 3.66, FLY 3.58, SIDU 3.58, ENTG 3.39, PENG 3.19.
+4. **ALT** has 294 sh — the entire position — under open 5% TrailingStopLimits in ROTH 1
+   (98 sh, VVO-254) and IRA 2 (196 sh, VVX-248). Shares added there are unprotected until the
+   order quantity is extended.
+5. Thinnest names on the list, where the raw-filing step matters most because dilution risk is
+   invisible to the factor files: CERS $5.2m DVOL, EVGO $5.2m, SPIR/VTS/AIRJ $7.2m; EVGO at
+   $1.44 and SIDU at $2.07 are sub-$3.
+
+**Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
+remain the PM's.
