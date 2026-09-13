@@ -1052,3 +1052,66 @@ short is against a small effective float. DVOL $7.2m, thin tier. `DataDays 1153`
 the book median 2,763). `B_OTC(%day) 0.306`, `OTC_Ntl(%) 0.403` — the B leg is negligible, which
 is why `Flags` reads A+C+D. `HITS(#) 3`. Book currently holds 6 sub-$5 names totalling $9,333;
 AIRJ makes 7.
+
+## ETOR disposition + five passes (2026-09-13)
+
+**ROOT, EVGO, SG, EZPW, ANDG: PASS** — grounded by PM. No price instruction, nothing parked.
+
+**ETOR: $1,500 at $28.00/share.** Not held, so an open: 53 sh = $1,484.00, leaving $2,516.00 of
+room to the $4,000 cap. eToro Group Ltd., Financial Services / Capital Markets.
+
+Below market on both references: $32.47 (`liquidty.tsv` Close 2026-09-04) and $32.75
+(`demand_converge` Price ~2026-09-07) — 13.8% and 14.5% below respectively.
+
+**All 16 new names from the screen are now dispositioned. None of the 16 held names are.**
+
+ETOR specifics: `DVOL $48.7m` — most liquid new name placed. `MktCap $2,188m` — largest. A leg
+`A_NetFlow +16.46%`, `A_NewCt 31` vs `A_ClosedCt 17`, `A_Mgrs 153`. `D_RSI 8.9`, `D_VEL 83.1`,
+`D_DIST 56.7`, `ConvScore 101.1`, `Flags A+D`. C leg is absent by design: `C_Short(%flt) 5.7` is
+below the flag threshold, `C_ShortChg +24.4%` (building hard but from a small base), `C_DTC 2.23`
+against `max_days_to_cover 4.80` — negligible squeeze fuel either way.
+`DataDays 331` (~16 months) — shortest history of anything placed, so its beta 1.8747 and
+annualised vol 0.5239 rest on little data.
+
+**ETOR is the second protectable name placed.** Daily sigma 3.30pp → `8 × sigma = 26.4%`, under
+the `hi_abs = 0.30` ceiling; arms at roughly **+35.9%** gain. Only VTS (+19.4%) and ETOR of the
+seven orders can ever carry a stop under the spec as written.
+
+### Capital correction
+
+Running balances earlier in this log used $48,500, assuming RKLB consumed a round $1,500. RKLB
+actually consumes **$1,475.00** (25 sh x $59.00). Correct arithmetic:
+
+    $50,000.00 - $9,715.95 placed = $40,284.05 uncommitted
+
+$25.00 higher than an $48,500-based count. The $40,284.05 figure supersedes the running balances
+in the COHU / MRAM / SPIR / VTS / AIRJ entries above.
+
+### Itemised buys — 7 orders, $9,715.95, weighted beta 2.67
+
+| # | name | limit | sh | dollars | type |
+|---|---|---|---|---|---|
+| 1 | RKLB | $59.00 | 25 | $1,475.00 | add (held) |
+| 2 | COHU | $53.00 | 28 | $1,484.00 | open |
+| 3 | MRAM | $15.25 | 98 | $1,494.50 | open |
+| 4 | SPIR | $10.25 | 146 | $1,496.50 | open |
+| 5 | VTS | $16.50 | 90 | $1,485.00 | open |
+| 6 | AIRJ | $3.85 | 207 | $796.95 | open |
+| 7 | ETOR | $28.00 | 53 | $1,484.00 | open |
+
+Passed grounding, unpriced (10): INDI, SIDU, TGTX, CERS, CRMD, ROOT, EVGO, SG, EZPW, ANDG.
+Awaiting grounding (16, all held): PENG, ENTG, FLY, ALT, MTSI, BAND, ACMR, NOK, PUMP, MRP, EE,
+TRU, SUPV, ASTS, HIMX, LRCX.
+
+## Deliverable
+
+`quantbot/tablet/buy_decisions_20260913.md` on Drive — id `1yKDyrhtY63jCQhsGgwjfUMigATHM6mI3`,
+9,761 B, byte-identical to the local copy at `tablet/buy_decisions_20260913.md`. Six sections:
+itemised buys with limit-vs-reference discounts, the two unpriced lists, stop-protectability for
+all 17 dispositioned names, the short-direction blind spot, and the ten tranche caveats.
+
+(An initial placeholder upload, id `1K7Mqx4F_tp_TNQ7bVCRXthlfnatd7xhh`, was trashed and replaced
+— `update_file` still cannot replace content, only title and parent.)
+
+**Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
+remain the PM's.
