@@ -999,3 +999,56 @@ MOH -0.11, HRL -0.07, TRP -0.05).
 VTS has a short price history, so both its beta and its volatility rest on less data than the
 figures suggest. Its short-interest data is from the 2026-08-14 settle and is 30 days stale, per
 the correction logged above.
+
+## AIRJ disposition (2026-09-13)
+
+**$800 at $3.85/share** — PM sized at roughly half the $1,500 pattern used for the rest of the
+tranche. Not held, so an open: 207 sh = $796.95, leaving $3,203.05 of room to the $4,000 cap.
+AirJoule Technologies Corporation.
+
+Both price references agree exactly at **$4.57** (`liquidty.tsv` Close 2026-09-04 and
+`demand_converge` Price ~2026-09-07), so $3.85 is **15.8% below** — the second-deepest
+below-market limit of the tranche after SPIR.
+
+Tranche state: $48,500 - $1,484.00 (COHU) - $1,494.50 (MRAM) - $1,496.50 (SPIR)
+- $1,485.00 (VTS) - $796.95 (AIRJ) = **$41,743.05 uncommitted**.
+
+### Strongest A leg of anything priced
+
+`A_NetFlow +15.8%`, `A_NewCt 29` vs `A_ClosedCt 12` — a **2.4x new/closed ratio**, best of the
+tranche — `A_Mgrs 102`, against `D_RSI 0.0` (maximally washed). Accumulation running into a fully
+washed price is the cleanest form of the setup this screen is built to find.
+
+### But the C leg points the wrong way, unlike VTS
+
+`short_aggregate` settle 2026-08-14: 6,238,502 sh short, **+1.97%** from 6,117,755 — shorts
+**building**. `latest_days_to_cover` 2.66 against `max_days_to_cover` 4.85, so the
+`C_Short(%flt) 18.1` headline **overstates the squeeze fuel**: that position clears in under
+three sessions.
+
+Contrast VTS: short book shrinking -5.73% on an 11.88-day cover. **Same `C` flag in `Flags`,
+opposite meaning.** Recorded as a screen weakness — the bounce-back score's `FUEL` term uses
+`C_Short(%flt)` magnitude only, and reads direction and cover-time nowhere. Candidate fix:
+weight `FUEL` by `-C_ShortChg(%)` and by `latest_days_to_cover`, so a shrinking short on a long
+cover scores above a building short on a short cover.
+
+### Unprotectable under spec §7.4
+
+Annualised vol 0.9338 → daily sigma 5.88pp → `8 × sigma = 47.1%`, over the `hi_abs = 0.30`
+ceiling at any gain level. Joins COHU, RKLB, SPIR, MRAM; VTS remains the only protectable name
+priced.
+
+### Two data-quality items for the raw-filing step (both UNVERIFIED here)
+
+1. **`PE` = 33.7** on a $330,868,000 market cap. A positive P/E implies a different company than
+   the washed-out setup suggests. Cannot be resolved from these files. If real, the thesis
+   changes; if an artifact, the A leg is accumulating ahead of earnings.
+2. **`Industry` = "Building Products & Equipment."** Looks like a misclassification for what
+   AirJoule does. Does not affect the score, but any sector-level check on this name is
+   unreliable.
+
+**Other structure.** `Float(%) 47.6` — only about half the shares outstanding float, so 18.1%
+short is against a small effective float. DVOL $7.2m, thin tier. `DataDays 1153` (~4.6 years vs
+the book median 2,763). `B_OTC(%day) 0.306`, `OTC_Ntl(%) 0.403` — the B leg is negligible, which
+is why `Flags` reads A+C+D. `HITS(#) 3`. Book currently holds 6 sub-$5 names totalling $9,333;
+AIRJ makes 7.
