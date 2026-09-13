@@ -821,3 +821,68 @@ settles it and is the PM's veto. Noted, not contested.
 
 **Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
 remain the PM's.
+
+## MRAM disposition (2026-09-13)
+
+**$1,500 at $15.25/share.** Not held, so an open, not an add: 98 sh = $1,494.50, leaving
+$2,505.50 of room to the $4,000 cap.
+
+Limit is **below market on both local references**, unlike COHU:
+
+| source | asof | MRAM |
+|---|---|---|
+| `input/liquidty.tsv` Close | 2026-09-04 | $16.37 |
+| `input/demand_converge.tsv` Price | ~2026-09-07 | $15.85 |
+
+$15.25 is 6.8% below the 09-04 close and 3.8% below the 09-07 print — the RKLB $59 structure,
+fills only on weakness.
+
+**The C leg is independently corroborated**, which is rare on this list. `short_aggregate.tsv`
+(settle 2026-08-14) gives MRAM 3,557,000 sh short / 1,459,532 avg daily volume → **DTC 2.44**,
+matching `demand_converge`'s 2.44 exactly from a different file and a different asof. Max DTC
+3.09. $54m short notional against $18.8m DVOL on a 2.4-day cover.
+
+Highest-volatility name in the tranche: beta 4.17, annualised vol 1.149.
+
+Tranche state: $48,500 - $1,484.00 (COHU) - $1,494.50 (MRAM) = **$45,521.50 uncommitted**.
+INDI and SIDU passed grounding but carry no price instruction, so nothing is parked on them.
+
+---
+
+# FINDING (2026-09-13): spec §7.4 `hi_abs` binds before the gain constraint on 42% of the book
+
+Surfaced while checking what stop MRAM would carry. Under
+`spec/spec_gain_protect_buffer_rev2.md` §7.4:
+
+    lo = max(0.03, 8 × SIGMA20)        line 325
+    hi = min(0.30, G / (1 + G))        line 326,  hi_abs = 0.30 (§ params, line 519)
+    lo > hi  →  Regime = UNPROTECTABLE, Action = NONE   (§7.4 line 353, table line 442)
+
+`8 × SIGMA20` exceeds the `hi_abs = 0.30` ceiling for any name whose daily sigma exceeds
+**3.75 percentage points**. For those names `lo > hi` holds *unconditionally* — at every gain
+level, including G large enough that `G/(1+G)` is not the binding term. The spec therefore
+refuses to write a stop at all.
+
+Sigma convention confirmed against the spec's own test case 4 (line 480): `SIGMA20 = 1.5` →
+`lo = 0.12`, i.e. SIGMA20 is in percentage points and `lo` is a fraction.
+
+**Scope: 101 of 239 trading-book names (42%).** Worst offenders by daily sigma:
+WVE 10.58pp, AXTI 9.67, POET 9.00, NVTS 7.97, BW 7.97, BFLY 7.95, CIFR 7.40, QBTS 7.31,
+BE 7.25, RCAT 7.20, ASTS 7.00, FLY 6.98, LAES 6.78, RGTI 6.72, NRGV 6.65, AMPX 6.61, PL 6.61,
+APLD 6.59, SEDG 6.27, ALAB 6.16. MRAM itself is 7.24pp.
+
+**Why this matters.** The framework was designed around the gain constraint `hi = G/(1+G)`,
+which is arithmetic and load-bearing. But for 42% of the book the binding constraint is instead
+`hi_abs = 0.30` — **a value I chose, not one the PM derived**. The high-beta sleeve is precisely
+where the PM stated the intent ("higher beta keep a buffer of 15% price move for stop loss"),
+and the spec as written declines to protect it. That inverts the design intent.
+
+**Caveat.** `liquidty.tsv`'s `Volatility` column is computed over `DataDays` (median 2,763
+sessions ~ 11 years), not 20, and the column's definition is undocumented. The count **101 is a
+proxy estimate, UNVERIFIED** — it is not the spec's `SIGMA20`. The structural result (that
+`8 × sigma > hi_abs` forces `lo > hi` above a sigma threshold) is arithmetic and holds
+independent of the sigma source; only the population count depends on the proxy.
+
+**Disposition: added to §15 open decisions, not acted on.** Raising or removing `hi_abs`, or
+reformulating `lo` so it cannot cross `hi`, is the PM's call and is the wrong thing to decide
+from an iPad mid-tranche.
