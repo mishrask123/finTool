@@ -1115,3 +1115,75 @@ all 17 dispositioned names, the short-direction blind spot, and the ten tranche 
 
 **Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
 remain the PM's.
+
+## PENG + ENTG dispositions (2026-09-13) — first adds to existing holdings
+
+PM instruction: *"Add peng 48/share, entg 135/share to make 4k."* Both are **adds sized to bring
+the position to the $4,000 cap**, the first such orders of the tranche.
+
+### PENG — $48.00, 59 sh = $2,832.00
+
+Held market value $1,125.52 (pnl -1.06%, derived cost $1,137.58) → position becomes **$3,957.52**.
+Limit is **7.3% below** both references — `liquidty.tsv` Close 2026-09-04 and `demand_converge`
+Price ~2026-09-07 both print **$51.76**. Market-value and cost-basis targets both yield 59 sh, so
+no interpretation ambiguity.
+
+Penguin Solutions, Technology / Information Technology Services. **Strongest A leg in the whole
+exercise:** `A_NetFlow +134.14%`, `A_NewCt 103` vs `A_ClosedCt 20` (**5.2x**), `A_Mgrs 279`,
+against `D_RSI 3.5`, `D_VEL 94.7`, `D_DIST 100.0` (maximum), `ConvScore 214.9`, `Flags A+D`.
+Shorts covering `C_ShortChg -6.2%`, `C_DTC 4.05`, `C_Short(%flt) 12.8`. DVOL $77.4m,
+beta 3.1944, `DataDays 2334`.
+
+### ENTG — $135.00, 20 sh = $2,700.00 (logged), with TWO OPEN QUESTIONS
+
+Held market value $1,263.33 (pnl **+10.53%**, derived cost $1,142.97).
+
+**(a) The two price references straddle the limit.** Not the COHU case — genuinely ambiguous:
+
+| source | asof | ENTG | $135 is |
+|---|---|---|---|
+| `liquidty.tsv` Close | 2026-09-04 | $138.74 | **2.7% below** |
+| `demand_converge` Price | ~2026-09-07 | $130.70 | **3.3% above** |
+
+If the 09-04 close is nearer current, this is a proper below-market limit; if the 09-07 print is,
+it fills at the ask. The live broker screen settles it.
+
+**(b) "To make 4k" resolves differently on market value vs cost basis**, because ENTG is up
+10.53% — the first name in this tranche where the two diverge:
+
+- **market value** $1,263.33 → room $2,736.67 → **20 sh = $2,700.00**, position becomes $3,963.33
+- **cost basis** $1,142.97 → room $2,857.03 → **21 sh = $2,835.00**, cost becomes $3,977.97
+
+One share, $135. **Logged as 20 sh**, reading "make 4k" as total position value. Raised to the PM
+because the convention is genuinely unsettled in this book: the PM's own over-cap analysis
+(57 positions / $204,426 / 40.5%) is computed on **market value**, while the doctrine's
+"$2,500 SMALL" is a **sizing** figure, i.e. cost. PENG did not expose this because it is roughly
+flat. **Awaiting the PM's convention call; correct if cost basis.**
+
+Entegris, Technology / Semiconductor Equipment & Materials. **Institutional heavyweight of the
+tranche:** `A_Mgrs 510` — largest of any name touched — `A_NewCt 103` vs `A_ClosedCt 45`,
+`A_NetFlow +47.98%`, `D_RSI 0.1`, `D_VEL 99.2`, `D_DIST 76.2`, `ConvScore 178.9`, `Flags A+D`.
+`DVOL $296.4m`, `DataDays 6578` (~26 years), beta 3.3854. Shorts covering `C_ShortChg -9.4%` but
+`C_Short(%flt) 5.2` on `C_DTC 3.4` — no squeeze fuel.
+
+### Tranche state
+
+| | before | after |
+|---|---|---|
+| placed | $9,715.95 | **$15,247.95** |
+| uncommitted of $50,000 | $40,284.05 | **$34,752.05** |
+| weighted beta | 2.67 | **2.89** |
+
+Sector mix of placed dollars: Technology $8,510.50 (**55.8%**), Industrials $3,768.45 (24.7%),
+Energy $1,485.00 (9.7%), Financial Services $1,484.00 (9.7%). Names with beta > 3 are
+$9,998.00 = **65.6%** of placed dollars, going into the 2026-09-16 FOMC.
+
+Both new adds are **unprotectable** under spec §7.4: PENG daily sigma 5.17pp → `8 × sigma`
+41.4%; ENTG 4.29pp → 34.3%. Of nine orders, only VTS (+19.4%) and ETOR (+35.9%) can ever arm a
+stop.
+
+Held names still awaiting grounding (14): FLY, ALT, MTSI, BAND, ACMR, NOK, PUMP, MRP, EE, TRU,
+SUPV, ASTS, HIMX, LRCX.
+
+**Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
+remain the PM's.
