@@ -1295,3 +1295,27 @@ FLY) taking the record to 10 orders / $16,347.95; the sector and beta-concentrat
 (52.1% Technology, 67.9% in beta > 3); ENTG's straddled limit alongside COHU's; protectability
 for all ten priced names plus the ten unpriced passes; short direction extended to all 20
 dispositioned names; and a per-name factor-profile section.
+
+## Deliverable: HANDOVER.md (2026-09-14)
+
+Written at the PM's request for another Claude agent picking up this book cold.
+
+**Drive:** `quantbot/HANDOVER.md` — id `1kZUo47JyJyzYYR9ymL43oCAoepQZBS-6`, **21,029 B**, at the
+`quantbot` **root** (folder id `1Zv7MWbqprHyv0Se9GO-gDYujQTcxhPDc`) rather than in `tablet/`,
+because it is an entry point rather than a trip deliverable. Byte-identical local copies at
+`/home/user/gdrive/HANDOVER.md` and `HANDOVER.md` in the repo root.
+
+Nine sections: the PM and the away-from-home-PC constraint with the 09-11 book figures; Claude's
+lane as five hard rules; the doctrine and its settled conventions; the data tree with **eight
+named defects**; current state of the $50k tranche and the stop spec including the `hi_abs` open
+finding; the bounce-back screen with its two baked-in lessons; **a table of twelve mistakes this
+session made, each with its transferable lesson**; tooling gotchas; and how to be useful here.
+
+The mistakes table is deliberately the longest section. Every entry cost credibility at the time
+and each one generalises: WEN (factor files cannot tell accumulation from liquidation), BAND (read
+the scratch pad first), BAND/CRDO (triggered is not broken), OXY (carve the hedge out of every
+statistic), RKLB insider (loudest is not cleanest), `RealizedPnlPct`, the null-sort sentinel, the
+floor/buffer false premise, Merrill `TrailingStopLimit` (the PM's observation of their own broker
+beats the documentation), the MRAM corroboration claim (verify independence before claiming
+agreement), the alpha-modulation null result (report null results), and "wait until Thursday"
+(say so when the PM's answer beats yours).
