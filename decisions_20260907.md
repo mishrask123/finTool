@@ -1255,3 +1255,43 @@ ASTS, HIMX, LRCX.
 
 **Nothing in this entry is an order or a recommendation to trade.** Levels, sizes and every exit
 remain the PM's.
+
+---
+
+# CONVENTION SETTLED (2026-09-14): "to $Nk" means MARKET VALUE
+
+PM's call, in answer to the FLY/ENTG divergence: **the target in "add X to $Nk" is the position's
+current market value, not its cost basis.**
+
+Consequences:
+
+- **No corrections needed.** FLY 55 sh / $1,100.00 and ENTG 20 sh / $2,700.00 as logged are both
+  correct. The alternative readings (FLY 46 sh, ENTG 21 sh) are void.
+- The $4,000 cap is a **target exposure**, not a capital-at-risk budget. A position that has
+  fallen gets topped up *more*, not less — averaging down is the intended behaviour, which is
+  consistent with the deep-discount mandate of this tranche.
+- Room-to-size is always `$Ncap - current_market_value`. Derived cost basis
+  (`value / (1 + pnl_pct/100)`) is no longer needed for sizing arithmetic and should not appear
+  in it.
+- This aligns sizing with the PM's existing over-cap analysis (57 positions / $204,426 / 40.5%),
+  which was already computed on market value. The book now has **one** basis, not two.
+
+**Standing rule. Do not re-raise per name.** The only remaining reason to compute cost basis is
+the gain constraint `hi = G/(1+G)` in the stop spec, where `G` is by definition a return on cost.
+Sizing uses market value; stops use cost. Both, deliberately.
+
+## Deliverable refresh (2026-09-14)
+
+`quantbot/tablet/buy_decisions_20260913_rev2.md` — id `1ltqwRAIn1hKfql8lXszzRr9yr8I3gZhU`,
+**11,635 B**, byte-identical to the local copy at `tablet/buy_decisions_20260913_rev2.md` and the
+git copy at `spec/buy_decisions_20260913_rev2.md`.
+
+Rev 1 (7 orders, id `1yKDyrhtY63jCQhsGgwjfUMigATHM6mI3`) renamed
+`buy_decisions_20260913_rev1_SUPERSEDED.md`. `update_file` handles the rename but still cannot
+replace content, so rev 2 is a new file — the same workaround used for the stop spec.
+
+Rev 2 adds over rev 1: the market-value sizing convention as §0; the three held adds (PENG, ENTG,
+FLY) taking the record to 10 orders / $16,347.95; the sector and beta-concentration breakdown
+(52.1% Technology, 67.9% in beta > 3); ENTG's straddled limit alongside COHU's; protectability
+for all ten priced names plus the ten unpriced passes; short direction extended to all 20
+dispositioned names; and a per-name factor-profile section.
