@@ -1319,3 +1319,92 @@ floor/buffer false premise, Merrill `TrailingStopLimit` (the PM's observation of
 beats the documentation), the MRAM corroboration claim (verify independence before claiming
 agreement), the alpha-modulation null result (report null results), and "wait until Thursday"
 (say so when the PM's answer beats yours).
+
+---
+
+# CORRECTION (2026-09-14): the spec's sigma is in the wrong units — every k constant is invalid
+
+Found while writing a buffer/bands primer for another Claude session.
+
+## The error
+
+`input/liquidty.tsv`'s `Volatility` column is an **annualised fraction**, not daily percentage
+points. The spec read it as daily, so every constant derived from it is scaled against a sigma
+**6.30x too small** (the factor is `100/sqrt(252)`).
+
+Decisive test against names whose volatility is independently known:
+
+| | `Volatility` | as annualised | as daily |
+|---|---|---|---|
+| KO | 0.1879 | **18.8% — correct for KO** | 0.19%/day → 3.0% annualised, impossible |
+| JNJ | 0.1903 | 19.0% ok | — |
+| MSFT | 0.3252 | 32.5% ok | — |
+| TSLA | 0.4743 | 47.4% ok | — |
+| AXTI | 1.5345 | 153% ann → **9.67pp/day** | — |
+
+KO settles it: no equity has 3% annualised volatility.
+
+Two places in `spec_gain_protect_buffer_rev2.md` prove the spec used the wrong reading:
+
+1. **§7.4 worked case:** *"AXTI at G = 12.66%, sigma = 1.53. Even k = 8 gives 12.3%"* — that is
+   `8 x 1.5345`, i.e. an annualised fraction multiplied as though it were daily pp.
+2. **§7.1 band provenance** (AXTI 9.8, POET 10.5, NVTS 11.9, QBTS 12.9, BE 13.0, ASTS 13.5,
+   APLD 14.3) is exactly `15 / Volatility` on the same misreading.
+
+**Invalidated spec values — do not use:** the band ladder `k in {8,10,12,15,20}`; the §7.1.2
+seed-ladder thresholds `0.40 / 0.70 / 1.00 / 1.30`; the §7.4 AXTI worked example; test case 4
+(`SIGMA20 = 1.5 → lo = 0.12`).
+
+**Corrected `k` implied by the PM's own stated 15% buffer** (`k = 15 / daily sigma`) across the
+239-name trading book: **p10 2.51, median 4.61, p90 8.27**, range WVE 1.42 → TRP 12.71. The
+ladder should span roughly **{2, 3, 4.5, 6, 8}**.
+
+## CORRECTION to my own 2026-09-13 finding
+
+I reported that `hi_abs = 0.30` was the binding constraint and framed it as "a number Claude
+chose, not one the PM derived." **The diagnosis was wrong, though the result was right.**
+
+My sigma conversion on 2026-09-13 was correct (I divided by sqrt(252)); the spec's was not. So
+the unprotectability count stands — but its **cause** is not the 0.30 ceiling. AXTI genuinely
+moves 9.67% per day, and `8 x sigma = 77%`. For such a name a stop that is simultaneously outside
+its own noise and above cost **does not exist at any gain level**. No ceiling change rescues it.
+`UNPROTECTABLE` is the honest output and the guard that produces it is correct.
+
+What the correction does expose is a genuine conflict between the PM's stated preference and the
+spec's floor:
+
+**A 15% buffer on a high-beta name is ~2 sigma-days, not 8.** MRAM (7.24pp/day) → 2.07 days.
+ASTS (7.00) → 2.14. AXTI (9.67) → 1.55.
+
+Floor sensitivity — names able to sit outside their own noise under a 30% cap:
+
+| floor | coverage |
+|---|---|
+| 2 sigma-days | 239/239 (100%) |
+| 3 sigma-days | 238/239 (100%) |
+| **4 sigma-days** | **233/239 (97%)** |
+| 5 sigma-days | 217/239 (91%) |
+| 6 sigma-days | 195/239 (82%) |
+| 8 sigma-days *(as specced)* | 138/239 (58%) |
+
+Real trade-off, no free setting: a lower floor gives the high-beta sleeve stops that will
+sometimes fire on ordinary noise; the current floor gives that sleeve no stops at all.
+**PM's decision. Not acted on.**
+
+## Deliverable
+
+`quantbot/BUFFER_BANDS_PRIMER.md` — id `1Kuqq7nkpjJMU5SzGl0hQpZID2yAb2q_O`, **13,215 B**, at the
+`quantbot` root beside `HANDOVER.md`. Byte-identical local copies at
+`/home/user/gdrive/BUFFER_BANDS_PRIMER.md` and `BUFFER_BANDS_PRIMER.md` in the repo root.
+
+Written to be pasted cold into another Claude session, at the PM's request ("I have another
+session with claude agent and having hard time to train"). Ten sections: the mechanism's purpose
+in the PM's own quoted words; the pieces; why `k` is in sigma-days rather than a flat percentage;
+the gain-constraint proof; the ratchet asymmetry; the alpha regimes; **the unit error with its
+decisive test and the corrected numbers**; a one-paragraph brief an agent can absorb directly;
+six open PM decisions; and a correction history of four prior errors on this mechanism.
+
+**The primer supersedes the spec's numeric values.** The spec's structure is sound; its constants
+are not. `spec_gain_protect_buffer_rev2.md` is NOT being revised into a rev 3 yet — the k ladder
+and the floor are both PM decisions, and re-specifying them unilaterally is exactly the mistake
+this entry is correcting.
